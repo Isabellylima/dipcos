@@ -2,7 +2,7 @@
 // Uso: node build.mjs
 import { mkdirSync, writeFileSync, cpSync, rmSync } from "node:fs";
 import { dirname, join } from "node:path";
-import { SITE, IMG, T, POSTS } from "./src/content.mjs";
+import { SITE, IMG, T, POSTS, PRODUCTS, ORDER } from "./src/content.mjs";
 
 const OUT = "public";
 const BUILD_DATE = new Date().toISOString().slice(0, 10);
@@ -227,6 +227,78 @@ const pageHero = (t, { eyebrow, h1, lead, crumbs, img }) => `
   </div>
 </section>`;
 
+
+// ---------- shop ----------
+const money = (n, lang) => new Intl.NumberFormat(lang === "pt" ? "pt-PT" : "en-IE", { style: "currency", currency: "EUR" }).format(n);
+const productNode = (p, lang, url) => ({
+  "@type": "Product", "@id": url + "#" + p.id, name: `${p[lang].name} — ${p[lang].sub}`, sku: p.sku, mpn: p.sku,
+  description: p[lang].desc.join(" "), image: abs("/assets/img/og-image.png"), brand: { "@type": "Brand", name: "Dipcos" },
+  offers: { "@type": "Offer", url: url + "#" + p.id, price: p.price.toFixed(2), priceCurrency: "EUR", seller: { "@id": ORG_ID },
+    priceSpecification: { "@type": "UnitPriceSpecification", price: p.price.toFixed(2), priceCurrency: "EUR", valueAddedTaxIncluded: false } },
+});
+function productCard(p, lang) {
+  const c = p[lang], o = ORDER[lang];
+  const isBundle = p.id === "bundle";
+  const specTitle = isBundle ? (lang === "pt" ? "O que inclui" : "What’s included") : (lang === "pt" ? "Especificações principais" : "Key specifications");
+  const specs = isBundle
+    ? `<ul class="checks">${c.specs.map(([, v]) => `<li>${v}</li>`).join("")}</ul>`
+    : `<dl class="specs">${c.specs.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>`;
+  const more = `${c.dims.length ? `<h4>${o.dims}</h4><dl class="specs">${c.dims.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>` : ""}
+    ${c.sections.map(([h, list, txt]) => `<h4>${h}</h4>${list ? `<ul>${list.map((li) => `<li>${li}</li>`).join("")}</ul>` : ""}${txt ? `<p>${txt}</p>` : ""}`).join("")}`;
+  return `
+<article class="product${p.featured ? " featured" : ""}" id="${p.id}">
+  <header class="p-head">${p.featured ? `<span class="badge">${o.featured}</span>` : ""}<h2>${c.name}</h2><p>${c.sub}</p></header>
+  <div class="p-body">
+    <p class="p-tag">${c.tagline}</p>
+    ${c.desc.map((d) => `<p>${d}</p>`).join("")}
+    <h3>${specTitle}</h3>
+    ${specs}
+    <details class="p-more"><summary>${o.specs}</summary>${more}</details>
+  </div>
+  <footer class="p-foot">
+    <div class="price">${money(p.price, lang)} <small>${o.vat}</small></div>
+    <button class="btn btn-primary" type="button" data-order="${p.id}">${o.order} ${arrow}</button>
+  </footer>
+</article>`;
+}
+function orderDialog(lang) {
+  const o = ORDER[lang];
+  const opt = (p) => `${p[lang].option} – ${money(p.price, lang)} ${o.vat}`;
+  return `
+<dialog class="order" id="order" aria-labelledby="order-h">
+  <form method="dialog" class="order-form" data-to="${SITE.email}" data-subject="${esc(o.subject)}" data-copied="${esc(o.copied)}" novalidate>
+    <button class="x" type="button" data-close aria-label="${o.close}">×</button>
+    <div class="step-form">
+      <h2 id="order-h">${o.title}</h2>
+      <p class="o-note">${o.note}</p>
+      <label>${o.product} *<select name="product" data-label="${esc(o.product)}" required>${PRODUCTS.map((p) => `<option value="${p.id}">${esc(opt(p))}</option>`).join("")}</select></label>
+      <div class="two">
+        <label>${o.quantity}<input name="quantity" type="number" min="1" value="1" inputmode="numeric" data-label="${esc(o.quantity)}"></label>
+        <label>${o.name}<input name="name" autocomplete="name" data-label="${esc(o.name)}"></label>
+      </div>
+      <div class="two">
+        <label>${o.email} *<input name="email" type="email" autocomplete="email" required data-label="${esc(o.email)}"></label>
+        <label>${o.phone}<input name="phone" type="tel" autocomplete="tel" data-label="${esc(o.phone)}"></label>
+      </div>
+      <label>${o.shipping} *<textarea name="shipping" required autocomplete="shipping street-address" data-label="${esc(o.shipping)}"></textarea></label>
+      <div class="two">
+        <label>${o.technician} *<select name="technician" required data-label="${esc(o.technician)}"><option value="">${o.choose}</option><option>${o.yes}</option><option>${o.no}</option></select></label>
+        <label>${o.nif}<input name="nif" data-label="${esc(o.nif)}"></label>
+      </div>
+      <label>${o.billing}<textarea name="billing" autocomplete="billing street-address" data-label="${esc(o.billing)}"></textarea></label>
+      <label>${o.message}<textarea name="message" data-label="${esc(o.message)}"></textarea></label>
+      <button class="btn btn-primary submit" type="submit">${o.submit} ${arrow}</button>
+    </div>
+    <div class="step-done" hidden>
+      <h2>${o.doneTitle}</h2>
+      <p>${o.done} <a href="mailto:${SITE.email}">${SITE.email}</a>.</p>
+      <pre class="summary"></pre>
+      <div class="hero-ctas"><button class="btn btn-primary" type="button" data-copy>${o.copy}</button><button class="btn btn-ghost" type="button" data-close style="color:var(--ink)">${o.close}</button></div>
+    </div>
+  </form>
+</dialog>`;
+}
+
 // ---------- pages ----------
 for (const lang of ["en", "pt"]) {
   const t = T[lang];
@@ -415,16 +487,17 @@ ${pageHero(t, { eyebrow: c.eyebrow, h1: c.h1, lead: c.lead, crumbs: t.nav.contac
   const sh = t.shop;
   write(t.paths.shop, layout({
     lang, path: t.paths.shop, alt: altOf("shop"), title: sh.title, description: sh.description, current: "shop",
-    ld: [crumbsNode([["Dipcos Energy", t.paths.home], [t.nav.shop, t.paths.shop]])],
+    ld: [crumbsNode([["Dipcos Energy", t.paths.home], [t.nav.shop, t.paths.shop]]), ...PRODUCTS.map((p) => productNode(p, lang, abs(t.paths.shop)))],
     body: `
 ${pageHero(t, { eyebrow: sh.eyebrow, h1: sh.h1, lead: sh.lead, crumbs: t.nav.shop, img: IMG.install })}
 <section class="section tight">
   <div class="wrap">
     <div class="shop-help"><div><h2 style="font-size:1.3rem">${sh.helpTitle}</h2><p style="margin:0;color:var(--graphite)">${sh.help}</p></div><div><a class="btn btn-primary" href="${t.paths.contact}">${t.nav.contact} ${arrow}</a></div></div>
-    <script src="https://elfsightcdn.com/platform.js" async></script>
-    <div class="${SITE.elfsightApp}" data-elfsight-app-lazy></div>
+    <div class="products">${PRODUCTS.map((p) => productCard(p, lang)).join("")}</div>
+    <p class="notice" style="margin-top:28px">${ORDER[lang].note}</p>
   </div>
-</section>`,
+</section>
+${orderDialog(lang)}`,
   }), { lang, alt: altOf("shop"), priority: "0.7" });
 
   // BLOG INDEX

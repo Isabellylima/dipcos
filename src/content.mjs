@@ -23,7 +23,7 @@ export const SITE = {
     // { name: "LinkedIn", url: "https://www.linkedin.com/company/..." },
     // { name: "Instagram", url: "https://www.instagram.com/..." },
   ],
-  elfsightApp: "elfsight-app-60c128fd-4573-4d6f-8841-e812ea848a9a",
+
 };
 
 // Imagens atuais do site (alojadas no Squarespace).
@@ -176,8 +176,8 @@ export const T = {
       phoneL: "Phone", emailL: "Email", addressL: "Address",
     },
     shop: {
-      title: "Shop — LFP Batteries & Hybrid Inverters | Dipcos Energy",
-      description: "Professional-grade energy storage and hybrid inverter solutions for residential and commercial applications. Talk to our team about compatibility before you buy.",
+      title: "Shop — 15 kWh LiFePO₄ Battery & 6.2 kW Hybrid Inverter | Dipcos Energy",
+      description: "Buy the Dipcos 15.36 kWh LiFePO₄ 48V battery (€1,942.53 + VAT), the 6,200 W hybrid inverter (€533 + VAT) or the complete battery + inverter system (€2,475.53 + VAT). Delivery quoted separately.",
       eyebrow: "Shop", h1: "Build your energy independence.",
       lead: "Professional-grade storage and hybrid inverter solutions for residential and commercial applications.",
       helpTitle: "Need help choosing the right solution?",
@@ -325,8 +325,8 @@ export const T = {
       phoneL: "Telefone", emailL: "Email", addressL: "Morada",
     },
     shop: {
-      title: "Loja — Baterias LFP e Inversores Híbridos | Dipcos Energy",
-      description: "Soluções profissionais de armazenamento e inversores híbridos para aplicações residenciais e comerciais. Fale com a equipa sobre compatibilidade antes de comprar.",
+      title: "Loja — Bateria LiFePO₄ 15 kWh e Inversor Híbrido 6,2 kW | Dipcos Energy",
+      description: "Bateria LiFePO₄ 48V de 15,36 kWh (1.942,53 € + IVA), inversor híbrido de 6.200 W (533 € + IVA) ou o sistema completo bateria + inversor (2.475,53 € + IVA). Portes orçamentados à parte.",
       eyebrow: "Loja", h1: "Construa a sua independência energética.",
       lead: "Soluções profissionais de armazenamento e inversores híbridos para aplicações residenciais e comerciais.",
       helpTitle: "Precisa de ajuda a escolher?",
@@ -449,3 +449,134 @@ export const POSTS = [
 <p>Events like this confirm that the future of energy is not just renewable — it is stable, flexible and storage-driven.</p>`,
   },
 ];
+
+// ---------------------------------------------------------------------
+//  LOJA — produtos (preços sem IVA, sem portes)
+// ---------------------------------------------------------------------
+export const PRODUCTS = [
+  {
+    id: "battery", sku: "DP-010-15K", price: 1942.53,
+    image: IMG.kit1,
+    en: {
+      name: "Battery", sub: "15 kWh LiFePO₄ Battery – 48V DC", option: "Battery Only",
+      tagline: "Safe storage. Stable performance. Long-term reliability.",
+      desc: [
+        "The 15 kWh LiFePO₄ Battery (48V DC) is a high-capacity energy storage solution designed for residential, commercial and hybrid energy systems.",
+        "Built using Lithium Iron Phosphate (LiFePO₄) technology, this battery delivers enhanced safety, thermal stability and extended cycle life — ensuring consistent performance and long-term energy independence.",
+      ],
+      specs: [["Battery model", "DP-010-15K"], ["Total energy capacity", "15.36 kWh"], ["Battery chemistry", "LiFePO₄ (Lithium Iron Phosphate)"], ["Nominal voltage", "51.2 V"], ["Operating voltage", "up to 58.4 V"], ["Continuous discharge power", "7.5 kW"], ["Continuous charge power", "7.5 kW"], ["Cycle life", "6,000 cycles @ 80% DoD"], ["Round-trip efficiency", "> 90%"], ["Operating temperature", "0 °C to 60 °C"]],
+      dims: [["Unboxed", "87 H × 38 W × 25 D cm · 111.5 kg"], ["Packed", "93.5 H × 43 W × 41.5 D cm · 117.5 kg"]],
+      sections: [
+        ["Why LiFePO₄ technology?", ["Superior safety and thermal stability", "Longer lifespan compared to conventional lithium batteries", "Consistent performance under high load", "Reduced maintenance requirements", "Reliable deep-cycle capability"], "This makes them ideal for intelligent energy storage systems where performance and safety are critical."],
+        ["Applications", ["Residential solar energy systems", "Commercial backup solutions", "Off-grid installations", "Hybrid inverter integration", "Scalable modular storage systems"]],
+        ["Designed for scalability", null, "The 15 kWh module can be integrated into larger energy systems, allowing expansion according to storage requirements and autonomy goals."],
+      ],
+    },
+    pt: {
+      name: "Bateria", sub: "Bateria LiFePO₄ 15 kWh – 48V DC", option: "Só Bateria",
+      tagline: "Armazenamento seguro. Desempenho estável. Fiabilidade a longo prazo.",
+      desc: [
+        "A Bateria LiFePO₄ de 15 kWh (48V DC) é uma solução de armazenamento de alta capacidade para sistemas de energia residenciais, comerciais e híbridos.",
+        "Com tecnologia de Fosfato de Ferro-Lítio (LiFePO₄), oferece maior segurança, estabilidade térmica e longa vida útil em ciclos — garantindo desempenho consistente e independência energética a longo prazo.",
+      ],
+      specs: [["Modelo", "DP-010-15K"], ["Capacidade total", "15,36 kWh"], ["Química", "LiFePO₄ (Fosfato de Ferro-Lítio)"], ["Tensão nominal", "51,2 V"], ["Tensão de funcionamento", "até 58,4 V"], ["Potência de descarga contínua", "7,5 kW"], ["Potência de carga contínua", "7,5 kW"], ["Ciclos de vida", "6.000 ciclos a 80% DoD"], ["Eficiência de ciclo", "> 90%"], ["Temperatura de funcionamento", "0 °C a 60 °C"]],
+      dims: [["Sem embalagem", "87 A × 38 L × 25 P cm · 111,5 kg"], ["Embalada", "93,5 A × 43 L × 41,5 P cm · 117,5 kg"]],
+      sections: [
+        ["Porquê tecnologia LiFePO₄?", ["Segurança e estabilidade térmica superiores", "Vida útil mais longa do que baterias de lítio convencionais", "Desempenho consistente sob carga elevada", "Menor necessidade de manutenção", "Ciclos profundos fiáveis"], "Por isso são ideais para sistemas inteligentes de armazenamento onde desempenho e segurança são críticos."],
+        ["Aplicações", ["Sistemas solares residenciais", "Soluções de backup comercial", "Instalações off-grid", "Integração com inversor híbrido", "Sistemas de armazenamento modulares e escaláveis"]],
+        ["Pensada para crescer", null, "O módulo de 15 kWh pode ser integrado em sistemas maiores, permitindo expandir conforme as necessidades de armazenamento e autonomia."],
+      ],
+    },
+  },
+  {
+    id: "inverter", sku: "DP-001-6KP", price: 533.0,
+    image: IMG.kit2,
+    en: {
+      name: "Inverter", sub: "Hybrid Inverter 6200W", option: "Inverter Only",
+      tagline: "Reliable power management. Intelligent energy control.",
+      desc: [
+        "The Hybrid Inverter 6200W is a high-performance energy management solution designed to seamlessly integrate solar generation, battery storage and grid supply into a single intelligent system.",
+        "Built for residential and small commercial applications, this inverter ensures optimised energy usage, improved self-consumption and enhanced energy security.",
+      ],
+      specs: [["Inverter model", "DP-001-6KP"], ["Rated power", "6,200 W"], ["Max PV open-circuit voltage", "500 VDC"], ["MPPT voltage range", "60 V – 500 VDC"], ["Max charging current", "120 A"], ["Operating temperature", "-10 °C to 55 °C"]],
+      dims: [["Unboxed", "43.3 H × 32 W × 13.2 D cm · 9.6 kg"], ["Packed", "53 × 39 × 21 cm · 10.6 kg"]],
+      sections: [
+        ["Why choose a hybrid inverter?", ["Store excess solar energy for later use", "Reduce dependency on the grid", "Optimise consumption based on energy availability", "Maintain power during outages", "Prepare your system for future expansion"]],
+        ["Applications", ["Residential solar installations", "Small commercial properties", "Energy backup systems", "Modular storage solutions"]],
+        ["Designed for scalability", null, "The Hybrid Inverter 6200W integrates seamlessly into modular energy systems, allowing expansion as energy needs grow."],
+      ],
+    },
+    pt: {
+      name: "Inversor", sub: "Inversor Híbrido 6200W", option: "Só Inversor",
+      tagline: "Gestão de energia fiável. Controlo energético inteligente.",
+      desc: [
+        "O Inversor Híbrido 6200W é uma solução de gestão de energia de alto desempenho que integra produção solar, baterias e rede elétrica num único sistema inteligente.",
+        "Pensado para aplicações residenciais e pequenos comércios, otimiza o uso de energia, aumenta o autoconsumo e reforça a segurança energética.",
+      ],
+      specs: [["Modelo", "DP-001-6KP"], ["Potência nominal", "6.200 W"], ["Tensão máx. FV em circuito aberto", "500 VDC"], ["Gama de tensão MPPT", "60 V – 500 VDC"], ["Corrente máx. de carga", "120 A"], ["Temperatura de funcionamento", "-10 °C a 55 °C"]],
+      dims: [["Sem embalagem", "43,3 A × 32 L × 13,2 P cm · 9,6 kg"], ["Embalado", "53 × 39 × 21 cm · 10,6 kg"]],
+      sections: [
+        ["Porquê um inversor híbrido?", ["Guardar o excedente solar para mais tarde", "Reduzir a dependência da rede", "Otimizar o consumo conforme a energia disponível", "Manter energia durante falhas", "Preparar o sistema para crescer"]],
+        ["Aplicações", ["Instalações solares residenciais", "Pequenos espaços comerciais", "Sistemas de energia de reserva", "Soluções de armazenamento modulares"]],
+        ["Pensado para crescer", null, "O Inversor Híbrido 6200W integra-se em sistemas modulares, permitindo expandir à medida que as necessidades aumentam."],
+      ],
+    },
+  },
+  {
+    id: "bundle", sku: "DP-001-6KP + DP-010-15K", price: 2475.53, featured: true,
+    image: IMG.kit1,
+    en: {
+      name: "Battery + Inverter", sub: "Hybrid Energy System – Inverter + Battery Package", option: "Battery + Inverter",
+      tagline: "Complete energy solution. Designed for independence and reliability.",
+      desc: [
+        "This integrated system combines a high-performance hybrid inverter with a modular LiFePO₄ battery, delivering a complete energy storage and management solution for residential and commercial applications.",
+        "Designed to work seamlessly together, this package ensures optimised energy usage, improved self-consumption and enhanced protection against power outages.",
+      ],
+      specs: [["Included", "Hybrid Inverter 6200W (DP-001-6KP)"], ["Included", "15.36 kWh LiFePO₄ Battery 48V (DP-010-15K)"], ["Included", "Intelligent energy management system"], ["Included", "Full system compatibility and integration"]],
+      dims: [],
+      sections: [
+        ["Key benefits", ["Store and use energy when you need it most", "Reduce dependency on the grid", "Maintain power during outages", "Optimise solar self-consumption", "Scalable system designed to grow with your needs", "Reliable and safe LiFePO₄ technology"]],
+        ["Built for real-world applications", ["Residential energy independence", "Small commercial operations", "Backup and emergency power", "Hybrid solar installations"]],
+        ["Modular & scalable", null, "Start with a complete system and expand over time. Additional battery modules and system upgrades can be integrated as your energy needs evolve."],
+      ],
+    },
+    pt: {
+      name: "Bateria + Inversor", sub: "Sistema Híbrido – Pack Inversor + Bateria", option: "Bateria + Inversor",
+      tagline: "Solução de energia completa. Pensada para independência e fiabilidade.",
+      desc: [
+        "Este sistema integrado combina um inversor híbrido de alto desempenho com uma bateria modular LiFePO₄, oferecendo uma solução completa de armazenamento e gestão de energia para casas e empresas.",
+        "Concebidos para funcionar em conjunto, garantem uso otimizado da energia, mais autoconsumo e maior proteção contra falhas de energia.",
+      ],
+      specs: [["Inclui", "Inversor Híbrido 6200W (DP-001-6KP)"], ["Inclui", "Bateria LiFePO₄ 15,36 kWh 48V (DP-010-15K)"], ["Inclui", "Sistema inteligente de gestão de energia"], ["Inclui", "Compatibilidade e integração total"]],
+      dims: [],
+      sections: [
+        ["Principais benefícios", ["Guardar e usar energia quando mais precisa", "Reduzir a dependência da rede", "Manter energia durante falhas", "Otimizar o autoconsumo solar", "Sistema escalável que cresce consigo", "Tecnologia LiFePO₄ fiável e segura"]],
+        ["Para aplicações reais", ["Independência energética residencial", "Pequenas operações comerciais", "Energia de reserva e emergência", "Instalações solares híbridas"]],
+        ["Modular e escalável", null, "Comece com um sistema completo e expanda com o tempo. Podem ser integrados módulos de bateria adicionais e upgrades conforme as suas necessidades evoluem."],
+      ],
+    },
+  },
+];
+
+export const ORDER = {
+  en: {
+    title: "Battery & Inverter Order Request",
+    note: "Prices do not include delivery. We will contact you to provide a shipping quote based on your location and order. Payment will be arranged by email after all details, including delivery costs, have been confirmed.",
+    product: "Select product", quantity: "Quantity", name: "Name", email: "Email", phone: "Phone number",
+    shipping: "Shipping address", technician: "Do you need an installation technician?", yes: "Yes", no: "No", choose: "Choose…",
+    nif: "NIF / VAT number", billing: "Billing address", message: "Message", submit: "Submit order request", close: "Close",
+    vat: "+ VAT", order: "Order now", specs: "Full specifications", dims: "Dimensions & weight", featured: "Complete system",
+    doneTitle: "Your email is ready to send", done: "Your email app has opened with the order details. Just press send. If it did not open, copy the details below and send them to",
+    copy: "Copy details", copied: "Copied", subject: "Order request",
+  },
+  pt: {
+    title: "Pedido de Encomenda — Bateria e Inversor",
+    note: "Os preços não incluem portes. Entraremos em contacto com um orçamento de envio de acordo com a sua localização e encomenda. O pagamento é combinado por email depois de confirmados todos os detalhes, incluindo os portes.",
+    product: "Produto", quantity: "Quantidade", name: "Nome", email: "Email", phone: "Telefone",
+    shipping: "Morada de entrega", technician: "Precisa de técnico de instalação?", yes: "Sim", no: "Não", choose: "Escolher…",
+    nif: "NIF", billing: "Morada de faturação", message: "Mensagem", submit: "Enviar pedido de encomenda", close: "Fechar",
+    vat: "+ IVA", order: "Encomendar", specs: "Especificações completas", dims: "Dimensões e peso", featured: "Sistema completo",
+    doneTitle: "O seu email está pronto a enviar", done: "A sua app de email abriu com os dados da encomenda. Basta carregar em enviar. Se não abriu, copie os dados abaixo e envie para",
+    copy: "Copiar dados", copied: "Copiado", subject: "Pedido de encomenda",
+  },
+};
