@@ -245,47 +245,28 @@ const productDetails = (c, o) => `${c.dims.length ? `<h4>${o.dims}</h4><dl class
 const orderBtn = (p, o, extra = "") => `<button class="btn btn-primary ${extra}" type="button" data-order="${p.id}">${o.order} ${arrow}</button>`;
 const priceTag = (p, lang, o) => `<div class="price">${money(p.price, lang)}<small>${o.vat}</small></div>`;
 
-// Featured: complete system
-function productFeature(p, lang) {
-  const c = p[lang], o = ORDER[lang];
-  return `
-<article class="feature" id="${p.id}">
-  <div class="feature-media"><img src="${IMG.kit1}" alt="${esc(c.sub)} — Dipcos" width="1000" height="1000" fetchpriority="high"></div>
-  <div class="feature-body">
-    <span class="badge">${o.featured}</span>
-    <h2>${c.name}</h2>
-    <p class="feature-sub">${c.sub}</p>
-    <p class="feature-tag">${c.tagline}</p>
-    <p>${c.desc[0]}</p>
-    <ul class="checks">${c.specs.map(([, v]) => `<li>${v}</li>`).join("")}</ul>
-    <div class="feature-buy">${priceTag(p, lang, o)}${orderBtn(p, o)}</div>
-    <p class="feature-save">${L(lang, "Same price as buying the battery and the inverter separately — configured to work together from day one.", "O mesmo preço que comprar bateria e inversor em separado — já configurados para funcionarem juntos desde o primeiro dia.")}</p>
-    <details class="p-more"><summary>${o.specs}</summary>${productDetails(c, o)}</details>
-  </div>
-</article>`;
-}
-
 // Individual product
 function productCard(p, lang) {
   const c = p[lang], o = ORDER[lang];
-  const highlights = p.id === "battery"
-    ? [["15.36", "kWh"], ["6,000", L(lang, "cycles", "ciclos")], [">90", "%"]]
-    : [["6.2", "kW"], ["500", "VDC PV"], ["120", "A"]];
-  const hlLabels = p.id === "battery"
-    ? [L(lang, "Capacity", "Capacidade"), L(lang, "@ 80% DoD", "a 80% DoD"), L(lang, "Efficiency", "Eficiência")]
-    : [L(lang, "Rated power", "Potência"), L(lang, "Max PV input", "Entrada FV máx."), L(lang, "Max charge", "Carga máx.")];
+  const HL = {
+    battery: [[["15.36", "kWh"], L(lang, "Capacity", "Capacidade")], [["6,000", L(lang, "cycles", "ciclos")], L(lang, "@ 80% DoD", "a 80% DoD")], [[">90", "%"], L(lang, "Efficiency", "Eficiência")]],
+    inverter: [[["6.2", "kW"], L(lang, "Rated power", "Potência")], [["500", "VDC"], L(lang, "Max PV input", "Entrada FV máx.")], [["120", "A"], L(lang, "Max charge", "Carga máx.")]],
+    bundle: [[["15.36", "kWh"], L(lang, "Storage", "Armazenamento")], [["6.2", "kW"], L(lang, "Inverter", "Inversor")], [["LFP", ""], L(lang, "Chemistry", "Química")]],
+  }[p.id];
+  const highlights = HL.map((x) => x[0]), hlLabels = HL.map((x) => x[1]);
+  const isBundle = p.id === "bundle";
   return `
-<article class="product" id="${p.id}">
+<article class="product${p.featured ? " featured" : ""}" id="${p.id}">
   <div class="p-media"><img class="p-img p-img--${p.id}" src="${IMG.kit1}" alt="${esc(c.sub)} — Dipcos" loading="lazy" width="1000" height="1000"></div>
   <div class="p-body">
-    <p class="p-kicker">${p.sku}</p>
+    <p class="p-kicker">${isBundle ? `<span class="badge">${o.featured}</span>` : p.sku}</p>
     <h2>${c.name}</h2>
     <p class="p-sub">${c.sub}</p>
     <ul class="p-hl">${highlights.map(([n, u], i) => `<li><strong>${n}<span>${u}</span></strong><small>${hlLabels[i]}</small></li>`).join("")}</ul>
     <p class="p-tag">${c.tagline}</p>
     <p>${c.desc[0]}</p>
-    <h3>${L(lang, "Key specifications", "Especificações principais")}</h3>
-    <dl class="specs">${c.specs.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>
+    <h3>${isBundle ? L(lang, "What’s included", "O que inclui") : L(lang, "Key specifications", "Especificações principais")}</h3>
+    ${isBundle ? `<ul class="checks">${c.specs.map(([, v]) => `<li>${v}</li>`).join("")}</ul>` : `<dl class="specs">${c.specs.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>`}
     <details class="p-more"><summary>${o.specs}</summary><p>${c.desc[1]}</p>${productDetails(c, o)}</details>
   </div>
   <footer class="p-foot">${priceTag(p, lang, o)}${orderBtn(p, o)}</footer>
@@ -538,9 +519,7 @@ ${pageHero(t, { eyebrow: c.eyebrow, h1: c.h1, lead: c.lead, crumbs: t.nav.contac
 ${pageHero(t, { eyebrow: sh.eyebrow, h1: sh.h1, lead: sh.lead, crumbs: t.nav.shop, img: IMG.install })}
 <section class="section tight shop">
   <div class="wrap">
-    ${productFeature(PRODUCTS.find((p) => p.id === "bundle"), lang)}
-    <div class="row-head" style="margin-top:clamp(56px,7vw,96px)"><div><p class="eyebrow">${L(lang, "Individual equipment", "Equipamento individual")}</p><h2>${L(lang, "Build or expand your system.", "Monte ou expanda o seu sistema.")}</h2></div></div>
-    <div class="products">${PRODUCTS.filter((p) => p.id !== "bundle").map((p) => productCard(p, lang)).join("")}</div>
+    <div class="products">${PRODUCTS.map((p) => productCard(p, lang)).join("")}</div>
   </div>
 </section>
 <section class="section bg-white">
