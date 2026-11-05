@@ -1,0 +1,35 @@
+# Dipcos Energy
+
+> Dipcos Energy is a technology-driven company based in Olhão (Algarve), Portugal, that designs and supplies modular, scalable and intelligent energy storage systems — LFP batteries, hybrid inverters and intelligent energy management — for homes, businesses, industry and critical infrastructure in Portugal and across Europe. Slogan: "Reliable energy. Real independence."
+
+Key facts:
+- Focus: energy storage and intelligent energy management (not a solar panel company; systems integrate with solar, grid and EV charging).
+- Experience: over 30 years in energy efficiency and intelligent power solutions; Dipcos originated in the early 1990s as a distributed power control system for boats and caravans. Founder: JP Ajami.
+- Solutions by scale: Residential & Small Commercial (0–50 kW); Commercial, Hospitality & Mid-Scale Industry (50–500 kW); High-Power & Industrial (500+ kW).
+- Services: consumption analysis, technical sizing, AI integration, monitoring and support. Installation is done by the customer or certified installers; Dipcos guides, verifies compatibility and coordinates.
+- Contact: +351 289 703 453 · info@dipcos.net · Rua Bartolomeu Constantino, lote 6 R/C Dir., 8700-256 Olhão, Portugal
+- Languages: English and Portuguese.
+
+## Main pages
+- [Home](https://www.dipcos.pt/): overview of Dipcos Energy storage solutions
+- [Solutions](https://www.dipcos.pt/services): residential, commercial/hospitality and industrial energy storage
+- [About](https://www.dipcos.pt/about): company history, mission, vision and values
+- [Contact](https://www.dipcos.pt/contact): free consultation, phone, email and address
+- [Shop](https://www.dipcos.pt/shop): batteries and hybrid inverters
+- [Português](https://www.dipcos.pt/pt/): versão em português
+
+## Articles
+- [Hybrid Inverters Explained: The Core of Modern Energy Systems](https://www.dipcos.pt/blog/hybrid-inverters-explained-the-core-of-modern-energy-systems): What a hybrid inverter is, how it manages solar, battery and grid energy, and why it sits at the core of scalable, intelligent energy systems.
+- [Why Energy Independence Matters in Today’s Europe](https://www.dipcos.pt/blog/why-energy-independence-matters-in-todays-europe): Rising demand, grid pressure and volatile prices are changing Europe’s energy landscape. What energy independence really means — and the role of storage.
+- [The Origin of Dipcos: Engineering Vision Ahead of Its Time](https://www.dipcos.pt/blog/the-origin-of-dipcos-engineering-vision-ahead-of-its-time): How Dipcos began in the early 1990s as a distributed power control system for boats and caravans — and why that vision returns today in energy storage.
+- [Introducing Dipcos Energy: Building the Future of Intelligent Energy Systems](https://www.dipcos.pt/blog/introducing-dipcos-energy-building-the-future-of-intelligent-energy-systems): Dipcos Energy delivers modular, intelligent and scalable energy storage solutions designed for real-world applications across Europe and beyond.
+- [Driving Energy Resilience Beyond Borders](https://www.dipcos.pt/blog/driving-energy-resilience-beyond-borders): Dipcos Energy at The Solar and Storage Live Africa: why energy storage is becoming a strategic necessity for grid stability and renewable integration.
+
+## FAQ
+- **What does Dipcos Energy do?** Dipcos Energy designs and supplies modular, scalable energy storage systems — LFP batteries, hybrid inverters and intelligent energy management — for homes, businesses, industry and critical infrastructure in Portugal and across Europe.
+- **Is Dipcos a solar panel company?** No. Dipcos specialises in energy storage and intelligent management. Our systems integrate with solar panels, the grid and EV charging, but our focus is storing and controlling energy.
+- **Does energy independence mean disconnecting from the grid?** Not necessarily. For most clients it means reducing dependency and gaining control: storing energy for later, using it when grid prices peak and protecting operations during outages.
+- **What battery technology do you use?** Our modular solutions are based on LFP (lithium iron phosphate) battery technology, combined with hybrid inverters that manage solar, battery and grid in a single system.
+- **Does Dipcos install the systems?** Dipcos does not perform installation directly unless agreed in writing. We provide technical guidance, verify compatibility, recommend qualified certified installers and coordinate the process.
+- **How do I know which system size I need?** Book a free consultation. We analyse your consumption, operational requirements and goals, then size the system — from 0–50 kW residential setups to 500+ kW industrial installations.
+- **Where does Dipcos operate?** Dipcos is based in Olhão, in the Algarve, Portugal, and serves clients in Portugal and across Europe.
