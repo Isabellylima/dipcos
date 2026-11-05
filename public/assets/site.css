@@ -355,7 +355,7 @@ dialog.order::backdrop{background:rgba(12,15,17,.72)}
 .order-form .step-done{display:grid;gap:14px}
 button[disabled]{opacity:.7;cursor:wait}
 
-.p-img--bundle{width:96%;height:auto;left:50%;top:52%;transform:translate(-50%,-50%)}
+.p-img--bundle{height:112%;width:auto;left:50%;top:50%;transform:translate(-51.5%,-52.5%)}
 .product.featured{border-color:var(--blue);box-shadow:0 0 0 1px var(--blue)}
 .p-kicker .badge{margin:0}
 .p-body h2{font-size:1.7rem}
