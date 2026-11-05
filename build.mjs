@@ -1,11 +1,14 @@
 // Gera o site estático em /public a partir de src/content.mjs
 // Uso: node build.mjs
-import { mkdirSync, writeFileSync, cpSync, rmSync } from "node:fs";
+import { mkdirSync, writeFileSync, cpSync, rmSync, readFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { dirname, join } from "node:path";
 import { SITE, IMG, T, POSTS, PRODUCTS, ORDER } from "./src/content.mjs";
 
 const OUT = "public";
 const BUILD_DATE = new Date().toISOString().slice(0, 10);
+const ver = (f) => createHash("sha1").update(readFileSync(f)).digest("hex").slice(0, 10);
+const CSS_V = ver("static/assets/site.css"), JS_V = ver("static/assets/site.js");
 rmSync(OUT, { recursive: true, force: true });
 mkdirSync(OUT, { recursive: true });
 cpSync("static", OUT, { recursive: true });
@@ -112,7 +115,7 @@ ${hreflang}
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.squarespace-cdn.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Montserrat:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=${BUILD_DATE}">
+<link rel="stylesheet" href="/assets/site.css?v=${CSS_V}">
 <script type="application/ld+json">${JSON.stringify(graph)}</script>
 </head>
 <body class="${bodyClass}">
@@ -165,7 +168,7 @@ ${body}
     </div>
   </div>
 </footer>
-<script src="/assets/site.js?v=${BUILD_DATE}" defer></script>
+<script src="/assets/site.js?v=${JS_V}" defer></script>
 </body>
 </html>`;
 }
@@ -785,7 +788,7 @@ writeFileSync(join(OUT, "_headers"), `/*
   Permissions-Policy: camera=(), microphone=(), geolocation=()
 
 /assets/*
-  Cache-Control: public, max-age=604800
+  Cache-Control: public, max-age=86400
 
 /llms.txt
   Content-Type: text/plain; charset=utf-8
