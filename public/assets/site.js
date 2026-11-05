@@ -10,43 +10,79 @@
   }
 })();
 
-// Contact form -> opens the visitor's email app with a pre-filled message
+// Shared: validate, collect labelled fields, send to the Worker; fall back to the visitor's email app
+function dipcosForm(form, opts) {
+  var lang = document.documentElement.lang.indexOf("pt") === 0 ? "pt" : "en";
+  var submitBtn = form.querySelector("[type=submit]");
+  var btnHtml = submitBtn.innerHTML;
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var ok = true;
+    form.querySelectorAll("[required]").forEach(function (el) {
+      var bad = !el.checkValidity();
+      el.classList.toggle("err", bad);
+      if (bad && ok) { el.focus(); ok = false; }
+    });
+    if (!ok) return;
+
+    var payload = { lang: lang }, lines = [];
+    form.querySelectorAll("[name]").forEach(function (el) {
+      var v = el.tagName === "SELECT" ? el.options[el.selectedIndex].text : el.value.trim();
+      if (el.name === "product" && el.tagName === "SELECT") v = el.options[el.selectedIndex].text;
+      payload[el.name] = v;
+      if (el.dataset.label) lines.push(el.dataset.label + ": " + (v || "-"));
+    });
+    var text = lines.join("\n");
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = form.dataset.sending || "…";
+
+    fetch(opts.endpoint, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(payload) })
+      .then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
+      .then(function (res) {
+        if (res && res.ok) opts.onSent(text);
+        else fallback();
+      })
+      .catch(fallback)
+      .finally(function () { submitBtn.disabled = false; submitBtn.innerHTML = btnHtml; });
+
+    function fallback() {
+      var href = "mailto:" + form.dataset.to +
+        "?subject=" + encodeURIComponent(opts.subject(payload)) +
+        "&body=" + encodeURIComponent(text);
+      opts.onFallback(text);
+      window.location.href = href;
+    }
+  });
+}
+
+// Contact form
 (function () {
   var form = document.querySelector("form.contact");
   if (!form) return;
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    if (!form.reportValidity()) return;
-    var d = new FormData(form);
-    var lines = [
-      d.get("message"),
-      "",
-      "—",
-      (form.dataset.lName || "Name") + ": " + d.get("name"),
-      "Email: " + d.get("email"),
-      (form.dataset.lPhone || "Phone") + ": " + (d.get("phone") || "-"),
-      (form.dataset.lType || "Project type") + ": " + d.get("type"),
-    ];
-    var href =
-      "mailto:" + form.dataset.to +
-      "?subject=" + encodeURIComponent(form.dataset.subject + " — " + d.get("name")) +
-      "&body=" + encodeURIComponent(lines.join("\n"));
-    window.location.href = href;
+  var status = form.querySelector(".form-status");
+  dipcosForm(form, {
+    endpoint: "/api/contact",
+    subject: function (p) { return form.dataset.subject + " — " + p.name; },
+    onSent: function () { form.reset(); status.textContent = form.dataset.sent; status.hidden = false; status.className = "form-status ok"; },
+    onFallback: function () { status.textContent = form.dataset.fallback; status.hidden = false; status.className = "form-status"; },
   });
 })();
 
-// Shop — order request dialog (sends the order by email via the visitor's email app)
+// Order request dialog
 (function () {
   var dlg = document.getElementById("order");
   if (!dlg) return;
   var form = dlg.querySelector("form");
   var stepForm = form.querySelector(".step-form");
+  var stepSent = form.querySelector(".step-sent");
   var stepDone = form.querySelector(".step-done");
   var summaryEl = form.querySelector(".summary");
   var lastText = "";
 
   function open(id) {
-    stepForm.hidden = false; stepDone.hidden = true;
+    stepForm.hidden = false; stepDone.hidden = true; stepSent.hidden = true;
     if (id) form.elements.product.value = id;
     if (dlg.showModal) dlg.showModal(); else dlg.setAttribute("open", "");
     form.elements.quantity.focus();
@@ -59,38 +95,18 @@
   form.querySelectorAll("[data-close]").forEach(function (b) { b.addEventListener("click", close); });
   dlg.addEventListener("click", function (e) { if (e.target === dlg) close(); });
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    var ok = true;
-    form.querySelectorAll("[required]").forEach(function (el) {
-      var bad = !el.checkValidity();
-      el.classList.toggle("err", bad);
-      if (bad && ok) { el.focus(); ok = false; }
-    });
-    if (!ok) return;
-    var lines = [];
-    form.querySelectorAll("[data-label]").forEach(function (el) {
-      var v = el.tagName === "SELECT" ? el.options[el.selectedIndex].text : el.value.trim();
-      lines.push(el.getAttribute("data-label") + ": " + (v || "-"));
-    });
-    lastText = lines.join("\n");
-    var prod = form.elements.product.options[form.elements.product.selectedIndex].text.split(" – ")[0];
-    var who = form.elements.name.value.trim() || form.elements.email.value.trim();
-    var href = "mailto:" + form.dataset.to +
-      "?subject=" + encodeURIComponent(form.dataset.subject + " — " + prod + " — " + who) +
-      "&body=" + encodeURIComponent(lastText);
-    summaryEl.textContent = lastText;
-    stepForm.hidden = true; stepDone.hidden = false;
-    window.location.href = href;
+  dipcosForm(form, {
+    endpoint: "/api/order",
+    subject: function (p) { return form.dataset.subject + " — " + p.product.split(" – ")[0] + " — " + (p.name || p.email); },
+    onSent: function () { form.reset(); stepForm.hidden = true; stepSent.hidden = false; },
+    onFallback: function (text) { lastText = text; summaryEl.textContent = text; stepForm.hidden = true; stepDone.hidden = false; },
   });
 
   var copyBtn = form.querySelector("[data-copy]");
   copyBtn.addEventListener("click", function () {
-    var done = function () { copyBtn.textContent = form.dataset.copied; };
-    if (navigator.clipboard) navigator.clipboard.writeText(form.dataset.to + "\n\n" + lastText).then(done, function () {});
+    if (navigator.clipboard) navigator.clipboard.writeText(form.dataset.to + "\n\n" + lastText).then(function () { copyBtn.textContent = form.dataset.copied; }, function () {});
   });
 
-  // open directly from a link like /shop#order-battery
   var m = location.hash.match(/^#order-(\w+)/);
   if (m) open(m[1]);
 })();

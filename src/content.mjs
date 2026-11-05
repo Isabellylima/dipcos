@@ -6,7 +6,7 @@
 export const SITE = {
   name: "Dipcos Energy",
   url: "https://www.dipcos.pt", // domínio canónico (usado em canonical, sitemap, dados estruturados)
-  email: "info@dipcos.net",
+  email: "info@dipcos.pt",
   phone: "+351 289 703 453",
   phoneHref: "+351289703453",
   address: {
@@ -49,7 +49,7 @@ export const T = {
     htmlLang: "en",
     ogLocale: "en_GB",
     paths: { home: "/", services: "/services", about: "/about", blog: "/blog/", shop: "/shop", contact: "/contact", terms: "/terms" },
-    nav: { services: "Solutions", about: "About", blog: "Insights", shop: "Shop", contact: "Contact", cta: "Book a free call", menu: "Menu", skip: "Skip to content" },
+    nav: { services: "Solutions", about: "About", blog: "Insights", shop: "Products", contact: "Contact", cta: "Book a free call", menu: "Menu", skip: "Skip to content" },
     langLabel: "Português",
     footer: {
       tagline: "Modular, intelligent energy storage for homes, businesses and critical infrastructure.",
@@ -169,16 +169,16 @@ export const T = {
     },
     contact: {
       title: "Contact Dipcos Energy — Book a Free Energy Consultation",
-      description: "Tell us about your residential, commercial or industrial energy project. Call +351 289 703 453 or email info@dipcos.net. Dipcos Energy, Olhão, Portugal.",
+      description: "Tell us about your residential, commercial or industrial energy project. Call +351 289 703 453 or email info@dipcos.pt. Dipcos Energy, Olhão, Portugal.",
       eyebrow: "Contact", h1: "Tell us about your project. We’re here to help.",
       lead: "Whether you’re planning a residential system, a commercial installation or an industrial solution, our team is ready to support you. Share your project with us and let’s find the right energy solution together.",
-      form: { name: "Name", email: "Email", phone: "Phone (optional)", type: "Project type", types: ["Residential (0–50 kW)", "Commercial / Hospitality (50–500 kW)", "Industrial (500+ kW)", "Not sure yet"], message: "Tell us about your project", send: "Send message", note: "Sending opens your email app with the message ready to go.", subject: "Project enquiry — website" },
+      form: { name: "Name", email: "Email", phone: "Phone (optional)", type: "Project type", types: ["Residential (0–50 kW)", "Commercial / Hospitality (50–500 kW)", "Industrial (500+ kW)", "Not sure yet"], message: "Tell us about your project", send: "Send message", note: "We usually reply within one business day.", subject: "Project enquiry — website", sending: "Sending…", sent: "Thank you — your message has been sent. We will get back to you shortly.", fallback: "Your email app has opened with your message — just press send." },
       phoneL: "Phone", emailL: "Email", addressL: "Address",
     },
     shop: {
-      title: "Shop — 15 kWh LiFePO₄ Battery & 6.2 kW Hybrid Inverter | Dipcos Energy",
-      description: "Buy the Dipcos 15.36 kWh LiFePO₄ 48V battery (€1,942.53 + VAT), the 6,200 W hybrid inverter (€533 + VAT) or the complete battery + inverter system (€2,475.53 + VAT). Delivery quoted separately.",
-      eyebrow: "Shop", h1: "Build your energy independence.",
+      title: "Products — 15 kWh LiFePO₄ Battery & 6.2 kW Hybrid Inverter | Dipcos Energy",
+      description: "Order the Dipcos 15.36 kWh LiFePO₄ 48V battery (€1,942.53 + VAT), the 6,200 W hybrid inverter (€533 + VAT) or the complete battery + inverter system (€2,475.53 + VAT). Delivery quoted separately.",
+      eyebrow: "Products", h1: "Build your energy independence.",
       lead: "Professional-grade storage and hybrid inverter solutions for residential and commercial applications.",
       helpTitle: "Need help choosing the right solution?",
       help: "If you have any questions about our products, compatibility or installation, our team is available to guide you and help you make the right decision.",
@@ -197,8 +197,8 @@ export const T = {
   pt: {
     htmlLang: "pt-PT",
     ogLocale: "pt_PT",
-    paths: { home: "/pt/", services: "/pt/solucoes", about: "/pt/sobre", blog: "/pt/artigos", shop: "/pt/loja", contact: "/pt/contacto", terms: "/terms" },
-    nav: { services: "Soluções", about: "Sobre", blog: "Artigos", shop: "Loja", contact: "Contacto", cta: "Marcar chamada gratuita", menu: "Menu", skip: "Saltar para o conteúdo" },
+    paths: { home: "/pt/", services: "/pt/solucoes", about: "/pt/sobre", blog: "/pt/artigos", shop: "/pt/produtos", contact: "/pt/contacto", terms: "/terms" },
+    nav: { services: "Soluções", about: "Sobre", blog: "Artigos", shop: "Produtos", contact: "Contacto", cta: "Marcar chamada gratuita", menu: "Menu", skip: "Saltar para o conteúdo" },
     langLabel: "English",
     footer: {
       tagline: "Armazenamento de energia modular e inteligente para casas, empresas e infraestruturas críticas.",
@@ -318,16 +318,16 @@ export const T = {
     },
     contact: {
       title: "Contacto Dipcos Energy — Marque uma Consulta Energética Gratuita",
-      description: "Fale-nos do seu projeto de energia residencial, comercial ou industrial. Ligue +351 289 703 453 ou escreva para info@dipcos.net. Dipcos Energy, Olhão.",
+      description: "Fale-nos do seu projeto de energia residencial, comercial ou industrial. Ligue +351 289 703 453 ou escreva para info@dipcos.pt. Dipcos Energy, Olhão.",
       eyebrow: "Contacto", h1: "Fale-nos do seu projeto. Estamos aqui para ajudar.",
       lead: "Quer esteja a planear um sistema residencial, uma instalação comercial ou uma solução industrial, a nossa equipa está pronta para apoiar. Partilhe o seu projeto e encontramos juntos a solução certa.",
-      form: { name: "Nome", email: "Email", phone: "Telefone (opcional)", type: "Tipo de projeto", types: ["Residencial (0–50 kW)", "Comercial / Hotelaria (50–500 kW)", "Industrial (500+ kW)", "Ainda não sei"], message: "Fale-nos do seu projeto", send: "Enviar mensagem", note: "Ao enviar, abre a sua app de email com a mensagem pronta.", subject: "Pedido de contacto — website" },
+      form: { name: "Nome", email: "Email", phone: "Telefone (opcional)", type: "Tipo de projeto", types: ["Residencial (0–50 kW)", "Comercial / Hotelaria (50–500 kW)", "Industrial (500+ kW)", "Ainda não sei"], message: "Fale-nos do seu projeto", send: "Enviar mensagem", note: "Respondemos normalmente no prazo de um dia útil.", subject: "Pedido de contacto — website", sending: "A enviar…", sent: "Obrigado — a sua mensagem foi enviada. Entraremos em contacto brevemente.", fallback: "A sua app de email abriu com a mensagem — basta carregar em enviar." },
       phoneL: "Telefone", emailL: "Email", addressL: "Morada",
     },
     shop: {
-      title: "Loja — Bateria LiFePO₄ 15 kWh e Inversor Híbrido 6,2 kW | Dipcos Energy",
-      description: "Bateria LiFePO₄ 48V de 15,36 kWh (1.942,53 € + IVA), inversor híbrido de 6.200 W (533 € + IVA) ou o sistema completo bateria + inversor (2.475,53 € + IVA). Portes orçamentados à parte.",
-      eyebrow: "Loja", h1: "Construa a sua independência energética.",
+      title: "Produtos — Bateria LiFePO₄ 15 kWh e Inversor Híbrido 6,2 kW | Dipcos Energy",
+      description: "Encomende a bateria LiFePO₄ 48V de 15,36 kWh (1.942,53 € + IVA), inversor híbrido de 6.200 W (533 € + IVA) ou o sistema completo bateria + inversor (2.475,53 € + IVA). Portes orçamentados à parte.",
+      eyebrow: "Produtos", h1: "Construa a sua independência energética.",
       lead: "Soluções profissionais de armazenamento e inversores híbridos para aplicações residenciais e comerciais.",
       helpTitle: "Precisa de ajuda a escolher?",
       help: "Se tiver dúvidas sobre produtos, compatibilidade ou instalação, a nossa equipa está disponível para o orientar e ajudar a tomar a decisão certa.",
@@ -567,7 +567,7 @@ export const ORDER = {
     nif: "NIF / VAT number", billing: "Billing address", message: "Message", submit: "Submit order request", close: "Close",
     vat: "+ VAT", order: "Order now", specs: "Full specifications", dims: "Dimensions & weight", featured: "Complete system",
     doneTitle: "Your email is ready to send", done: "Your email app has opened with the order details. Just press send. If it did not open, copy the details below and send them to",
-    copy: "Copy details", copied: "Copied", subject: "Order request",
+    copy: "Copy details", copied: "Copied", subject: "Order request", sending: "Sending…", sentTitle: "Order request sent", sent: "Thank you. We have received your request and will contact you with the delivery quote and payment details.",
   },
   pt: {
     title: "Pedido de Encomenda — Bateria e Inversor",
@@ -577,6 +577,6 @@ export const ORDER = {
     nif: "NIF", billing: "Morada de faturação", message: "Mensagem", submit: "Enviar pedido de encomenda", close: "Fechar",
     vat: "+ IVA", order: "Encomendar", specs: "Especificações completas", dims: "Dimensões e peso", featured: "Sistema completo",
     doneTitle: "O seu email está pronto a enviar", done: "A sua app de email abriu com os dados da encomenda. Basta carregar em enviar. Se não abriu, copie os dados abaixo e envie para",
-    copy: "Copiar dados", copied: "Copiado", subject: "Pedido de encomenda",
+    copy: "Copiar dados", copied: "Copiado", subject: "Pedido de encomenda", sending: "A enviar…", sentTitle: "Pedido enviado", sent: "Obrigado. Recebemos o seu pedido e vamos contactá-lo com o orçamento de portes e os dados de pagamento.",
   },
 };

@@ -266,7 +266,8 @@ function orderDialog(lang) {
   const opt = (p) => `${p[lang].option} – ${money(p.price, lang)} ${o.vat}`;
   return `
 <dialog class="order" id="order" aria-labelledby="order-h">
-  <form method="dialog" class="order-form" data-to="${SITE.email}" data-subject="${esc(o.subject)}" data-copied="${esc(o.copied)}" novalidate>
+  <form class="order-form" data-to="${SITE.email}" data-subject="${esc(o.subject)}" data-copied="${esc(o.copied)}" data-sending="${esc(o.sending)}" novalidate>
+    <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp">
     <button class="x" type="button" data-close aria-label="${o.close}">×</button>
     <div class="step-form">
       <h2 id="order-h">${o.title}</h2>
@@ -288,6 +289,11 @@ function orderDialog(lang) {
       <label>${o.billing}<textarea name="billing" autocomplete="billing street-address" data-label="${esc(o.billing)}"></textarea></label>
       <label>${o.message}<textarea name="message" data-label="${esc(o.message)}"></textarea></label>
       <button class="btn btn-primary submit" type="submit">${o.submit} ${arrow}</button>
+    </div>
+    <div class="step-sent" hidden>
+      <h2>${o.sentTitle}</h2>
+      <p>${o.sent}</p>
+      <div><button class="btn btn-primary" type="button" data-close>${o.close}</button></div>
     </div>
     <div class="step-done" hidden>
       <h2>${o.doneTitle}</h2>
@@ -466,17 +472,19 @@ ${pageHero(t, { eyebrow: c.eyebrow, h1: c.h1, lead: c.lead, crumbs: t.nav.contac
       </dl>
       <div class="map"><iframe title="${esc(addressLine)}" src="https://www.google.com/maps?q=${encodeURIComponent(addressLine)}&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
     </div>
-    <form class="contact" data-to="${SITE.email}" data-subject="${esc(f.subject)}" data-l-name="${esc(f.name)}" data-l-phone="${esc(f.phone)}" data-l-type="${esc(f.type)}">
+    <form class="contact" data-to="${SITE.email}" data-subject="${esc(f.subject)}" data-sending="${esc(f.sending)}" data-sent="${esc(f.sent)}" data-fallback="${esc(f.fallback)}" novalidate>
+      <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp">
       <div class="two">
-        <label>${f.name}<input name="name" autocomplete="name" required></label>
-        <label>${f.email}<input name="email" type="email" autocomplete="email" required></label>
+        <label>${f.name} *<input name="name" autocomplete="name" required data-label="${esc(f.name)}"></label>
+        <label>${f.email} *<input name="email" type="email" autocomplete="email" required data-label="${esc(f.email)}"></label>
       </div>
       <div class="two">
-        <label>${f.phone}<input name="phone" type="tel" autocomplete="tel"></label>
-        <label>${f.type}<select name="type">${f.types.map((o) => `<option>${o}</option>`).join("")}</select></label>
+        <label>${f.phone}<input name="phone" type="tel" autocomplete="tel" data-label="${esc(f.phone)}"></label>
+        <label>${f.type}<select name="type" data-label="${esc(f.type)}">${f.types.map((o) => `<option>${o}</option>`).join("")}</select></label>
       </div>
-      <label>${f.message}<textarea name="message" required></textarea></label>
+      <label>${f.message} *<textarea name="message" required data-label="${esc(f.message)}"></textarea></label>
       <div><button class="btn btn-primary" type="submit">${f.send} ${arrow}</button></div>
+      <p class="form-status" role="status" hidden></p>
       <p class="note">${f.note}</p>
     </form>
   </div>
@@ -699,7 +707,7 @@ Key facts:
 - [Solutions](${abs("/services")}): residential, commercial/hospitality and industrial energy storage
 - [About](${abs("/about")}): company history, mission, vision and values
 - [Contact](${abs("/contact")}): free consultation, phone, email and address
-- [Shop](${abs("/shop")}): batteries and hybrid inverters
+- [Products](${abs("/shop")}): 15.36 kWh LiFePO₄ battery (€1,942.53 + VAT), 6,200 W hybrid inverter (€533 + VAT), battery + inverter system (€2,475.53 + VAT); order requests by form, delivery quoted separately
 - [Português](${abs("/pt/")}): versão em português
 
 ## Articles
@@ -722,6 +730,9 @@ writeFileSync(join(OUT, "_redirects"), `/home / 301
 /servicos /pt/solucoes 301
 /sobre /pt/sobre 301
 /contacto /pt/contacto 301
+/pt/loja /pt/produtos 301
+/loja /pt/produtos 301
+/produtos /pt/produtos 301
 `);
 
 // ---------- headers ----------

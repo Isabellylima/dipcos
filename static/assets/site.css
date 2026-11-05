@@ -313,3 +313,9 @@ dialog.order::backdrop{background:rgba(12,15,17,.72)}
 .summary{white-space:pre-wrap;font:400 .88rem/1.55 ui-monospace,Menlo,monospace;background:var(--paper);padding:14px;border-radius:var(--r);margin:0;max-height:260px;overflow:auto}
 @media (max-width:600px){.order-form .two{grid-template-columns:1fr}}
 [hidden]{display:none!important}
+.hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0}
+.form-status{margin:0;padding:12px 14px;border-radius:var(--r);background:var(--paper);border-left:3px solid var(--orange);font-size:.95rem}
+.form-status.ok{border-left-color:var(--blue)}
+.order-form .step-sent{display:grid;gap:14px}
+.order-form .step-done{display:grid;gap:14px}
+button[disabled]{opacity:.7;cursor:wait}

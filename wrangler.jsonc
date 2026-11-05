@@ -1,11 +1,22 @@
 {
   "name": "dipcos",
-  "compatibility_date": "2025-09-01",
-  // Site estático servido pelo Workers Static Assets (sem código de Worker)
+  "main": "src/worker.js",
+  "compatibility_date": "2026-10-15",
+  // Site estático em ./public; o Worker só corre primeiro para /api/* (formulários)
   "assets": {
     "directory": "./public",
+    "binding": "ASSETS",
     "html_handling": "auto-trailing-slash",
-    "not_found_handling": "404-page"
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/api/*"]
+  },
+  // Envio dos formulários por email (Cloudflare Email Service).
+  // Requer o domínio dipcos.pt no Cloudflare e onboarded em Email Service > Email Sending,
+  // e o destinatário verificado em Email Routing > Destination addresses.
+  "send_email": [{ "name": "EMAIL" }],
+  "vars": {
+    "MAIL_TO": "info@dipcos.pt",
+    "MAIL_FROM": "website@dipcos.pt"
   },
   "observability": { "enabled": true }
 }
