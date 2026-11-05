@@ -236,31 +236,66 @@ const productNode = (p, lang, url) => ({
   offers: { "@type": "Offer", url: url + "#" + p.id, price: p.price.toFixed(2), priceCurrency: "EUR", seller: { "@id": ORG_ID },
     priceSpecification: { "@type": "UnitPriceSpecification", price: p.price.toFixed(2), priceCurrency: "EUR", valueAddedTaxIncluded: false } },
 });
-function productCard(p, lang) {
-  const c = p[lang], o = ORDER[lang];
-  const isBundle = p.id === "bundle";
-  const specTitle = isBundle ? (lang === "pt" ? "O que inclui" : "What’s included") : (lang === "pt" ? "Especificações principais" : "Key specifications");
-  const specs = isBundle
-    ? `<ul class="checks">${c.specs.map(([, v]) => `<li>${v}</li>`).join("")}</ul>`
-    : `<dl class="specs">${c.specs.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>`;
-  const more = `${c.dims.length ? `<h4>${o.dims}</h4><dl class="specs">${c.dims.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>` : ""}
+const L = (lang, en, pt) => (lang === "pt" ? pt : en);
+const productDetails = (c, o) => `${c.dims.length ? `<h4>${o.dims}</h4><dl class="specs">${c.dims.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>` : ""}
     ${c.sections.map(([h, list, txt]) => `<h4>${h}</h4>${list ? `<ul>${list.map((li) => `<li>${li}</li>`).join("")}</ul>` : ""}${txt ? `<p>${txt}</p>` : ""}`).join("")}`;
+const orderBtn = (p, o, extra = "") => `<button class="btn btn-primary ${extra}" type="button" data-order="${p.id}">${o.order} ${arrow}</button>`;
+const priceTag = (p, lang, o) => `<div class="price">${money(p.price, lang)}<small>${o.vat}</small></div>`;
+
+// Featured: complete system
+function productFeature(p, lang) {
+  const c = p[lang], o = ORDER[lang];
   return `
-<article class="product${p.featured ? " featured" : ""}" id="${p.id}">
-  <header class="p-head">${p.featured ? `<span class="badge">${o.featured}</span>` : ""}<h2>${c.name}</h2><p>${c.sub}</p></header>
-  <div class="p-body">
-    <p class="p-tag">${c.tagline}</p>
-    ${c.desc.map((d) => `<p>${d}</p>`).join("")}
-    <h3>${specTitle}</h3>
-    ${specs}
-    <details class="p-more"><summary>${o.specs}</summary>${more}</details>
+<article class="feature" id="${p.id}">
+  <div class="feature-media"><img src="${IMG.kit1}" alt="${esc(c.sub)} — Dipcos" width="1000" height="1000" fetchpriority="high"></div>
+  <div class="feature-body">
+    <span class="badge">${o.featured}</span>
+    <h2>${c.name}</h2>
+    <p class="feature-sub">${c.sub}</p>
+    <p class="feature-tag">${c.tagline}</p>
+    <p>${c.desc[0]}</p>
+    <ul class="checks">${c.specs.map(([, v]) => `<li>${v}</li>`).join("")}</ul>
+    <div class="feature-buy">${priceTag(p, lang, o)}${orderBtn(p, o)}</div>
+    <p class="feature-save">${L(lang, "Same price as buying the battery and the inverter separately — configured to work together from day one.", "O mesmo preço que comprar bateria e inversor em separado — já configurados para funcionarem juntos desde o primeiro dia.")}</p>
+    <details class="p-more"><summary>${o.specs}</summary>${productDetails(c, o)}</details>
   </div>
-  <footer class="p-foot">
-    <div class="price">${money(p.price, lang)} <small>${o.vat}</small></div>
-    <button class="btn btn-primary" type="button" data-order="${p.id}">${o.order} ${arrow}</button>
-  </footer>
 </article>`;
 }
+
+// Individual product
+function productCard(p, lang) {
+  const c = p[lang], o = ORDER[lang];
+  const highlights = p.id === "battery"
+    ? [["15.36", "kWh"], ["6,000", L(lang, "cycles", "ciclos")], [">90", "%"]]
+    : [["6.2", "kW"], ["500", "VDC PV"], ["120", "A"]];
+  const hlLabels = p.id === "battery"
+    ? [L(lang, "Capacity", "Capacidade"), L(lang, "@ 80% DoD", "a 80% DoD"), L(lang, "Efficiency", "Eficiência")]
+    : [L(lang, "Rated power", "Potência"), L(lang, "Max PV input", "Entrada FV máx."), L(lang, "Max charge", "Carga máx.")];
+  return `
+<article class="product" id="${p.id}">
+  <div class="p-media"><img class="p-img p-img--${p.id}" src="${IMG.kit1}" alt="${esc(c.sub)} — Dipcos" loading="lazy" width="1000" height="1000"></div>
+  <div class="p-body">
+    <p class="p-kicker">${p.sku}</p>
+    <h2>${c.name}</h2>
+    <p class="p-sub">${c.sub}</p>
+    <ul class="p-hl">${highlights.map(([n, u], i) => `<li><strong>${n}<span>${u}</span></strong><small>${hlLabels[i]}</small></li>`).join("")}</ul>
+    <p class="p-tag">${c.tagline}</p>
+    <p>${c.desc[0]}</p>
+    <h3>${L(lang, "Key specifications", "Especificações principais")}</h3>
+    <dl class="specs">${c.specs.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>
+    <details class="p-more"><summary>${o.specs}</summary><p>${c.desc[1]}</p>${productDetails(c, o)}</details>
+  </div>
+  <footer class="p-foot">${priceTag(p, lang, o)}${orderBtn(p, o)}</footer>
+</article>`;
+}
+
+const howToOrder = (lang) => {
+  const steps = lang === "pt"
+    ? [["Envie o pedido", "Escolha o equipamento e preencha o formulário — leva 2 minutos."], ["Recebe o orçamento de portes", "Respondemos por email com o custo de entrega para a sua morada."], ["Confirma e paga", "Após confirmar todos os detalhes, o pagamento é combinado por email."], ["Entrega e instalação", "Recebe o equipamento. Se precisar, indicamos um técnico certificado."]]
+    : [["Send your request", "Pick the equipment and fill in the form — it takes 2 minutes."], ["Get a delivery quote", "We reply by email with the shipping cost to your address."], ["Confirm and pay", "Once every detail is confirmed, payment is arranged by email."], ["Delivery & installation", "Receive your equipment. If needed, we refer a certified installer."]];
+  return `<ol class="steps">${steps.map(([h, d]) => `<li><h3>${h}</h3><p>${d}</p></li>`).join("")}</ol>`;
+};
+
 function orderDialog(lang) {
   const o = ORDER[lang];
   const opt = (p) => `${p[lang].option} – ${money(p.price, lang)} ${o.vat}`;
@@ -498,11 +533,18 @@ ${pageHero(t, { eyebrow: c.eyebrow, h1: c.h1, lead: c.lead, crumbs: t.nav.contac
     ld: [crumbsNode([["Dipcos Energy", t.paths.home], [t.nav.shop, t.paths.shop]]), ...PRODUCTS.map((p) => productNode(p, lang, abs(t.paths.shop)))],
     body: `
 ${pageHero(t, { eyebrow: sh.eyebrow, h1: sh.h1, lead: sh.lead, crumbs: t.nav.shop, img: IMG.install })}
-<section class="section tight">
+<section class="section tight shop">
   <div class="wrap">
-    <div class="shop-help"><div><h2 style="font-size:1.3rem">${sh.helpTitle}</h2><p style="margin:0;color:var(--graphite)">${sh.help}</p></div><div><a class="btn btn-primary" href="${t.paths.contact}">${t.nav.contact} ${arrow}</a></div></div>
-    <div class="products">${PRODUCTS.map((p) => productCard(p, lang)).join("")}</div>
-    <p class="notice" style="margin-top:28px">${ORDER[lang].note}</p>
+    ${productFeature(PRODUCTS.find((p) => p.id === "bundle"), lang)}
+    <div class="row-head" style="margin-top:clamp(56px,7vw,96px)"><div><p class="eyebrow">${L(lang, "Individual equipment", "Equipamento individual")}</p><h2>${L(lang, "Build or expand your system.", "Monte ou expanda o seu sistema.")}</h2></div></div>
+    <div class="products">${PRODUCTS.filter((p) => p.id !== "bundle").map((p) => productCard(p, lang)).join("")}</div>
+  </div>
+</section>
+<section class="section bg-white">
+  <div class="wrap">
+    <div class="sec-head"><p class="eyebrow">${L(lang, "How ordering works", "Como encomendar")}</p><h2>${L(lang, "Simple, transparent, by email.", "Simples, transparente, por email.")}</h2><p class="lead">${ORDER[lang].note}</p></div>
+    ${howToOrder(lang)}
+    <div class="shop-help" style="margin:56px 0 0"><div><h2 style="font-size:1.3rem">${sh.helpTitle}</h2><p style="margin:0;color:var(--graphite)">${sh.help}</p></div><div><a class="btn btn-primary" href="${t.paths.contact}">${t.nav.contact} ${arrow}</a></div></div>
   </div>
 </section>
 ${orderDialog(lang)}`,
