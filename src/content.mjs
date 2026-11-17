@@ -4,6 +4,8 @@
 // =====================================================================
 
 export const SITE = {
+  // Metricool (análise de tráfego do site no painel Metricool)
+  metricoolHash: "75ecdc556268fcae1d9872c799c954b1",
   name: "Dipcos Energy",
   url: "https://www.dipcos.pt", // domínio canónico (usado em canonical, sitemap, dados estruturados)
   email: "info@dipcos.pt",
