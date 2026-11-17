@@ -69,6 +69,14 @@ const servicesNode = (t) => ({
   })),
 });
 
+// ---------- ícones das redes sociais (SVG inline) ----------
+const svg = (d) => `<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="${d}"/></svg>`;
+const ICONS = {
+  linkedin: svg("M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11.5H3V9.75zm6.5 0h3.83v1.57h.05c.53-1 1.84-2.07 3.79-2.07 4.05 0 4.8 2.67 4.8 6.13v5.87h-4v-5.2c0-1.24-.02-2.84-1.73-2.84-1.73 0-2 1.35-2 2.75v5.29h-4V9.75z"),
+  facebook: svg("M13.5 21.5v-8h2.7l.4-3.2h-3.1V8.26c0-.92.26-1.55 1.58-1.55h1.68V3.85c-.29-.04-1.29-.13-2.45-.13-2.43 0-4.09 1.48-4.09 4.2v2.38H7.5v3.2h2.72v8h3.28z"),
+  instagram: svg("M12 2.75c2.52 0 2.82.01 3.81.06 2.56.12 3.76 1.33 3.88 3.88.05.99.06 1.29.06 3.81s-.01 2.82-.06 3.81c-.12 2.55-1.32 3.76-3.88 3.88-.99.05-1.29.06-3.81.06s-2.82-.01-3.81-.06c-2.57-.12-3.76-1.33-3.88-3.88-.05-.99-.06-1.29-.06-3.81s.01-2.82.06-3.81C4.43 4.13 5.62 2.93 8.19 2.81c.99-.05 1.29-.06 3.81-.06zM12 1c-2.56 0-2.88.01-3.88.06C4.7 1.21 2.79 3.11 2.63 6.54 2.58 7.55 2.57 7.87 2.57 10.5s.01 2.95.06 3.96c.16 3.42 2.06 5.33 5.49 5.49 1 .05 1.32.06 3.88.06s2.88-.01 3.88-.06c3.42-.16 5.34-2.06 5.49-5.49.05-1.01.06-1.33.06-3.96s-.01-2.95-.06-3.96c-.15-3.42-2.06-5.33-5.49-5.49C14.88 1.01 14.56 1 12 1zm0 4.65a4.85 4.85 0 1 0 0 9.7 4.85 4.85 0 0 0 0-9.7zm0 8a3.15 3.15 0 1 1 0-6.3 3.15 3.15 0 0 1 0 6.3zm5.04-9.33a1.13 1.13 0 1 0 0 2.27 1.13 1.13 0 0 0 0-2.27z"),
+};
+
 // ---------- layout ----------
 function layout({ lang, path, title, description, alt, body, ld = [], image, type = "website", bodyClass = "", current, noindex = false }) {
   const t = T[lang];
@@ -160,7 +168,7 @@ ${body}
           <a href="mailto:${SITE.email}">${SITE.email}</a><br><br>
           ${addr.street}<br>${addr.postalCode} ${addr.city}, Portugal
         </address>
-        ${SITE.social.length ? `<ul style="margin-top:18px">${SITE.social.map((s) => `<li><a href="${s.url}" rel="me noopener" target="_blank">${s.name}</a></li>`).join("")}</ul>` : ""}
+        ${SITE.social.length ? `<ul class="socials">${SITE.social.map((s) => `<li><a href="${s.url}" rel="me noopener" target="_blank" aria-label="Dipcos Energy — ${s.name}" title="${s.name}">${ICONS[s.icon] || s.name}</a></li>`).join("")}</ul>` : ""}
       </div>
     </div>
     <div class="sub-foot">

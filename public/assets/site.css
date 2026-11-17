@@ -361,3 +361,9 @@ button[disabled]{opacity:.7;cursor:wait}
 .p-body h2{font-size:1.7rem}
 .p-body{padding:26px 26px 8px}.p-foot{padding:20px 26px 26px}
 .p-hl strong{font-size:1.3rem}
+
+/* footer social icons */
+.foot .socials{display:flex;gap:10px;margin-top:22px}
+.foot .socials a{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.22);color:#E4E9EC;transition:background .2s,border-color .2s,color .2s}
+.foot .socials a:hover{background:var(--blue);border-color:var(--blue);color:#fff}
+.foot .socials svg{display:block}
