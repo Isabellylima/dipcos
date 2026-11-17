@@ -23,7 +23,7 @@ export const SITE = {
   // e no "sameAs" dos dados estruturados — importante para Google e IAs ligarem a marca.
   social: [
     { name: "LinkedIn", icon: "linkedin", url: "https://www.linkedin.com/company/111370943/" },
-    { name: "Facebook", icon: "facebook", url: "https://www.facebook.com/1000372863161689" },
+    { name: "Facebook", icon: "facebook", url: "https://www.facebook.com/dipcos.energy/" },
     { name: "Instagram", icon: "instagram", url: "https://www.instagram.com/dipcos.energy/" },
   ],
 

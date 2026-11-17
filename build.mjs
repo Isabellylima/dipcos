@@ -173,7 +173,7 @@ ${body}
     </div>
     <div class="sub-foot">
       <span>© ${new Date().getFullYear()} Dipcos Energy. ${t.footer.rights}</span>
-      <a href="/terms">${t.footer.legal}</a>
+      <span class="sub-links"><a href="/terms">${t.footer.legal}</a><a class="madeby" href="https://heyimplement.com" target="_blank" rel="noopener">Made by <strong>Implement</strong></a></span>
     </div>
   </div>
 </footer>
