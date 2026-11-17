@@ -111,6 +111,7 @@ ${hreflang}
 <link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
+<link rel="alternate" type="application/rss+xml" title="Dipcos Energy — Insights" href="/feed.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.squarespace-cdn.com" crossorigin>
@@ -665,6 +666,42 @@ ${pageHero(t, { eyebrow: "Legal", h1: t.terms.h1, lead: "Last updated: 27/02/202
   }), { lang: "en", priority: "0.3" });
 }
 
+// ---------- feed.xml (RSS 2.0 do blog — usado pelo Metricool e leitores de RSS) ----------
+{
+  const cdata = (x) => `<![CDATA[${String(x).replace(/]]>/g, "]]]]><![CDATA[>")}]]>`;
+  const rfc = (d) => new Date(d + "T09:00:00Z").toUTCString();
+  const sorted = [...POSTS].sort((a, b) => b.date.localeCompare(a.date));
+  const items = sorted.map((p) => {
+    const url = abs("/blog/" + p.slug);
+    const img = p.image;
+    return `  <item>
+    <title>${esc(p.title)}</title>
+    <link>${url}</link>
+    <guid isPermaLink="true">${url}</guid>
+    <pubDate>${rfc(p.date)}</pubDate>
+    <dc:creator>Dipcos Energy</dc:creator>
+    <description>${cdata(p.description)}</description>
+    <content:encoded>${cdata(`<p><img src="${img}" alt="${esc(p.title)}"></p>` + p.body)}</content:encoded>
+    <enclosure url="${esc(img)}" type="${/\.png/i.test(img) ? "image/png" : "image/jpeg"}" length="0"/>
+    <media:content url="${esc(img)}" medium="image"/>
+  </item>`;
+  }).join("\n");
+  writeFileSync(join(OUT, "feed.xml"), `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/">
+<channel>
+  <title>Dipcos Energy — Insights</title>
+  <link>${abs("/blog/")}</link>
+  <atom:link href="${abs("/feed.xml")}" rel="self" type="application/rss+xml"/>
+  <description>Energy storage, hybrid inverters and energy independence — articles from Dipcos Energy.</description>
+  <language>en</language>
+  <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
+  <image><url>${abs("/assets/img/icon-512.png")}</url><title>Dipcos Energy — Insights</title><link>${abs("/blog/")}</link></image>
+${items}
+</channel>
+</rss>
+`);
+}
+
 // ---------- sitemap.xml ----------
 const urlEntry = (pg) => {
   const loc = abs(pg.pathOverride || pg.path);
@@ -772,6 +809,10 @@ writeFileSync(join(OUT, "_headers"), `/*
 
 /llms.txt
   Content-Type: text/plain; charset=utf-8
+
+/feed.xml
+  Content-Type: application/rss+xml; charset=utf-8
+  Cache-Control: public, max-age=600
 `);
 
 console.log(`Built ${pages.length} indexable pages + 404 → ${OUT}/`);
