@@ -821,6 +821,10 @@ writeFileSync(join(OUT, "_headers"), `/*
 /feed.xml
   Content-Type: application/rss+xml; charset=utf-8
   Cache-Control: public, max-age=600
+
+/aprovacao/*
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-cache
 `);
 
 console.log(`Built ${pages.length} indexable pages + 404 → ${OUT}/`);

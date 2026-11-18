@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/assets/img/favicon-32.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DIPCOS – Posts LinkedIn para aprovação</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600;700&family=Lato:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root{--blue:#2F8DBA;--blue-deep:#1F6A8E;--blue-light:#8CC7E0;--orange:#F5B279;--orange-dark:#C96D20;--ink:#0C0F11;--ink2:#161B1F;--graphite:#4A5258;--muted:#6B747A;--line:#D9D6DB;--paper:#F3F1F4;--ok:#2E8B57;--warn:#C96D20}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Open Sans",system-ui,sans-serif;color:var(--graphite);background:var(--paper);line-height:1.55}
+  h1,h2,h3{font-family:Montserrat,system-ui,sans-serif;color:var(--ink);margin:0}
+  .label{font-family:Lato,system-ui,sans-serif;font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:12px}
+  header{background:var(--ink);color:#fff;padding:56px 24px 48px;border-top:6px solid var(--blue)}
+  .wrap{max-width:1080px;margin:0 auto}
+  header h1{color:#fff;font-size:clamp(28px,4vw,42px);line-height:1.15;margin:10px 0 14px}
+  header .label{color:var(--blue-light)}
+  header p{color:#C9D2D7;max-width:720px;margin:0 0 8px}
+  .bar{height:6px;width:120px;background:var(--orange);margin:18px 0 22px}
+  .how{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
+  .how span{background:var(--ink2);border:1px solid #2a3238;border-radius:4px;padding:8px 12px;font-size:14px;color:#E4E9EC}
+  nav{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;gap:6px;overflow-x:auto;padding:10px 24px}
+  nav a{white-space:nowrap;text-decoration:none;color:var(--ink);font-weight:600;font-size:14px;padding:6px 12px;border-radius:4px}
+  nav a:hover{background:var(--paper)}
+  nav .count{margin-left:auto;color:var(--muted);font-size:13px;align-self:center;white-space:nowrap}
+  main{padding:0 24px 80px}
+  section.week{margin-top:56px}
+  .week-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:24px}
+  .week-head h2{font-size:26px}
+  .week-head .label{color:var(--blue)}
+  .card{background:#fff;border:1px solid var(--line);border-radius:4px;margin-bottom:28px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);overflow:hidden}
+  .card.wide{grid-template-columns:1fr}
+  .card.status-ok{border-left:6px solid var(--ok)}
+  .card.status-change{border-left:6px solid var(--warn)}
+  .media{background:var(--ink);display:flex;flex-direction:column;justify-content:center;position:relative;min-height:100%}
+  .media img,.media video{width:100%;display:block}
+  .slides{position:relative}
+  .slides img{display:none}
+  .slides img.on{display:block}
+  .snav{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;color:#fff;font-size:14px;background:var(--ink2)}
+  .snav button{background:transparent;border:1px solid #3a444b;color:#fff;border-radius:4px;padding:6px 14px;font-size:16px;cursor:pointer}
+  .snav button:hover{border-color:var(--blue-light)}
+  .body{padding:26px 28px}
+  .meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+  .chip{font-size:12px;font-weight:700;border-radius:3px;padding:3px 8px;background:var(--paper);color:var(--ink)}
+  .chip.date{background:var(--ink);color:#fff}
+  .chip.fmt{background:#E7F1FB;color:var(--blue-deep)}
+  .body h3{font-size:21px;margin:4px 0 14px;line-height:1.25}
+  .tabs{display:flex;gap:4px;margin-bottom:-1px}
+  .tabs button{border:1px solid var(--line);border-bottom:none;background:var(--paper);padding:7px 14px;font:600 13px "Open Sans",sans-serif;border-radius:4px 4px 0 0;cursor:pointer;color:var(--graphite)}
+  .tabs button.on{background:#fff;color:var(--ink)}
+  .caption{border:1px solid var(--line);border-radius:0 4px 4px 4px;padding:16px 18px;white-space:pre-wrap;font-size:14.5px;color:var(--ink);max-height:420px;overflow:auto;background:#fff}
+  .caption[hidden]{display:none}
+  .sub{margin-top:14px;font-size:13.5px;color:var(--muted)}
+  .sub b{color:var(--ink)}
+  .copy{margin-top:10px;background:transparent;border:1px solid var(--line);border-radius:4px;padding:6px 12px;font:600 13px "Open Sans",sans-serif;cursor:pointer;color:var(--blue-deep)}
+  .approve{margin-top:20px;border-top:1px solid var(--line);padding-top:16px}
+  .approve .opts{display:flex;gap:8px;flex-wrap:wrap}
+  .approve label{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:4px;padding:8px 12px;cursor:pointer;font-weight:600;font-size:14px}
+  .approve input[type=radio]{accent-color:var(--blue)}
+  .approve textarea{width:100%;margin-top:10px;min-height:64px;border:1px solid var(--line);border-radius:4px;padding:10px;font:14px "Open Sans",sans-serif;resize:vertical}
+  .note{background:#FFF7EF;border:1px solid #F3D9BF;border-radius:4px;padding:12px 14px;font-size:14px;color:#6b4a2b;margin-bottom:22px}
+  .poll{padding:28px;color:#fff;background:var(--ink);display:flex;flex-direction:column;justify-content:center;gap:12px;min-height:100%}
+  .poll .q{font-family:Montserrat,sans-serif;font-weight:700;font-size:24px;line-height:1.3}
+  .poll .o{border:1px solid #3a444b;border-radius:20px;padding:10px 16px;font-weight:600}
+  .poll small{color:var(--blue-light)}
+  .about-text{white-space:pre-wrap;font-size:14.5px;color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:16px 18px}
+  .summary{background:var(--ink);color:#fff;border-radius:4px;padding:28px;margin-top:56px}
+  .summary h2{color:#fff;font-size:22px;margin-bottom:10px}
+  .summary pre{white-space:pre-wrap;background:var(--ink2);border:1px solid #2a3238;border-radius:4px;padding:14px;font:13.5px/1.5 "Open Sans",sans-serif;color:#E4E9EC;max-height:320px;overflow:auto}
+  .summary button{background:var(--orange);color:var(--ink);border:none;border-radius:4px;padding:12px 18px;font:700 15px "Open Sans",sans-serif;cursor:pointer}
+  .summary .hint{color:#C9D2D7;font-size:14px}
+  footer{text-align:center;color:var(--muted);font-size:13px;padding:30px 24px}
+  @media (max-width:820px){.card{grid-template-columns:1fr}.body{padding:20px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="label">DIPCOS Energy · LinkedIn · Aprovação</div>
+    <h1>Conteúdos LinkedIn para aprovação</h1>
+    <div class="bar"></div>
+    <p>Aqui estão a nova capa da página, a proposta do «Sobre nós» e os posts das 3 primeiras semanas, cada um com a imagem e a legenda em português e em inglês.</p>
+    <p>Em cada um, escolha <b>Aprovado</b> ou <b>Precisa de alterações</b> e escreva o que quer mudar. No fim da página, carregue em <b>Copiar resposta</b> e envie o texto à Jessica.</p>
+    <div class="how"><span>📅 Publicação às 9h00</span><span>🇵🇹 Português primeiro · 🇬🇧 inglês a seguir</span><span>🔗 Link sempre no 1.º comentário</span></div>
+  </div>
+</header>
+<nav><div class="wrap">
+  <a href="#perfil">Perfil</a><a href="#semana-1">Semana 1</a><a href="#semana-2">Semana 2</a><a href="#semana-3">Semana 3</a><a href="#resposta">Resposta</a>
+  <span class="count" id="count"></span>
+</div></nav>
+<main><div class="wrap" id="app"></div>
+<div class="wrap">
+  <section class="summary" id="resposta">
+    <div class="label" style="color:var(--blue-light)">Resposta</div>
+    <h2>A sua resposta</h2>
+    <p class="hint">O resumo atualiza-se à medida que escolhe. Carregue no botão e cole o texto numa mensagem à Jessica (WhatsApp ou email).</p>
+    <pre id="sumtext"></pre>
+    <button id="copyall">Copiar resposta</button> <span id="copied" class="hint"></span>
+  </section>
+</div></main>
+<footer>DIPCOS Energy · Armazenamento de energia · Portugal · dipcos.pt</footer>
+
+<script>
+const COMMENT = "🔗 Consulta gratuita / Free consultation: www.dipcos.pt";
+const DATA = [
+ {id:"perfil", title:"Perfil da página", label:"Antes de publicar", items:[
+  {key:"capa", date:"Perfil", fmt:"Capa 1584×396", title:"Nova capa da página LinkedIn", wide:true, imgs:["img/capa.jpg"],
+   about:"Substitui a capa atual. Mantém o logótipo oficial, as cores do site e os textos da capa atual, e passa a dizer para quem é: casas, empresas e indústria, em Portugal."},
+  {key:"sobre", date:"Perfil", fmt:"Texto «Sobre nós»", title:"Novo «Sobre nós» da página", imgs:["img/sobre_nos.jpg"],
+   aboutText:`A DIPCOS ajuda casas e empresas a tirar o máximo partido da energia solar: guardar a energia que os painéis produzem durante o dia, usá-la quando precisa e manter o essencial a funcionar quando a rede falha.
+
+Desenvolvemos sistemas de armazenamento modulares, com baterias LFP e gestão inteligente de energia, dimensionados para cada perfil de consumo:
+• 0–50 kW — habitações e pequenos negócios
+• 50–500 kW — comércio, hotelaria e indústria
+• 500+ kW — alta potência e infraestruturas críticas
+
+Como trabalhamos:
+1. Analisamos o seu consumo e as suas necessidades
+2. Dimensionamos o sistema: capacidade, inversor e baterias
+3. Coordenamos a instalação com instaladores certificados
+4. Acompanhamos com monitorização e suporte contínuos
+
+O resultado: menos energia comprada à rede, custos mais previsíveis e continuidade quando há cortes de energia.
+
+Com sede em Olhão e mais de 30 anos de experiência em controlo e gestão de energia, a DIPCOS nasceu nos anos 90 como um sistema de controlo distribuído de energia e evoluiu para o armazenamento moderno.
+
+A energia da sua casa não depende da rede. Depende de si.
+
+👉 Peça uma consulta gratuita em www.dipcos.pt`}
+ ]},
+ {id:"semana-1", title:"Semana 1", label:"17 a 19 de novembro", items:[
+  {key:"s1p1", date:"Ter 17/11", fmt:"Imagem · fixar no topo", title:"Apresentação: «A energia solar que produz, disponível quando precisa.»", imgs:["img/s1_p1.jpg"],
+   pt:`Energia solar que trabalha para si, de dia e de noite. ☀️🔋
+
+Somos a DIPCOS, uma empresa de Olhão especializada em armazenamento de energia. Ajudamos casas, empresas e indústria em Portugal a guardar a energia que os painéis solares produzem e a usá-la quando precisam.
+
+O que fazemos:
+🔋 Sistemas modulares com baterias LFP
+📈 De 0 a 500+ kW, que crescem com o seu consumo
+⚙️ Gestão inteligente e backup das cargas essenciais quando a rede falha
+
+Analisamos o seu consumo, dimensionamos o sistema, coordenamos a instalação com instaladores certificados e acompanhamos tudo com monitorização contínua. São mais de 30 anos de experiência em controlo e gestão de energia.
+
+A sua energia não depende da rede. Depende de si.
+👉 Consulta gratuita: link no primeiro comentário.`,
+   en:`Solar energy that works for you, day and night.
+
+We are DIPCOS, an energy storage company based in Olhão, Portugal. We help homes, businesses and industry store the energy their solar panels produce and use it when they need it.
+
+What we do:
+🔋 Modular LFP battery systems
+📈 From 0 to 500+ kW, growing with your consumption
+⚙️ Smart energy management and backup for essential loads when the grid fails
+
+We analyse your consumption, size the system, coordinate the installation with certified installers and support you with ongoing monitoring. Over 30 years of experience in energy control and management.
+
+Your energy shouldn't depend on the grid. It depends on you.
+👉 Free consultation: link in the first comment.`,
+   tags:"#EnergiaSolar #ArmazenamentoDeEnergia #Autoconsumo #EnergyStorage #Portugal"},
+  {key:"s1p2", date:"Qua 18/11", fmt:"Imagem", title:"O apagão: «O sol não chega. É preciso guardá-lo.»", imgs:["img/s1_p2.jpg"],
+   pt:`28 de abril de 2025, por volta das 11h30. Portugal ficou às escuras.
+E muitas casas com painéis solares também.
+
+Porquê? Muitos sistemas solares estão ligados à rede. Quando a rede cai, o inversor desliga-se por segurança. Sem armazenamento e sem um sistema preparado para backup, o sol continua lá, mas a energia não chega à sua casa ou empresa.
+
+A transição para a energia solar é o primeiro passo. A independência vem quando se juntam três coisas:
+☀️ produção solar
+🔋 armazenamento modular
+⚙️ gestão inteligente que mantém o essencial a funcionar quando a rede falha
+
+A sua casa ou empresa estaria preparada para um novo apagão? 👇`,
+   en:`28 April 2025, around 11:30 am. Portugal went dark.
+And so did many homes with solar panels.
+
+Why? Many solar systems are connected to the grid. When the grid goes down, the inverter switches off for safety. Without storage and a backup-ready system, the sun is still shining, but the energy doesn't reach your home or business.
+
+Going solar is the first step. Real independence comes when you combine three things:
+☀️ solar generation
+🔋 modular storage
+⚙️ smart management that keeps essential loads running when the grid fails
+
+Would your home or business be ready for another blackout? 👇`,
+   tags:"#EnergiaSolar #ArmazenamentoDeEnergia #Apagão #EnergyStorage #Portugal"},
+  {key:"s1p3", date:"Qui 19/11", fmt:"Carrossel PDF · 7 páginas", title:"5 mitos sobre energia solar", imgs:["img/s1_p3_1.jpg","img/s1_p3_2.jpg","img/s1_p3_3.jpg","img/s1_p3_4.jpg","img/s1_p3_5.jpg","img/s1_p3_6.jpg","img/s1_p3_7.jpg"],
+   docTitle:"5 mitos sobre energia solar | 5 solar energy myths",
+   pt:`Há muitas ideias feitas sobre energia solar. Algumas fazem adiar uma decisão que já podia estar a poupar dinheiro.
+
+Juntámos 5 mitos que ouvimos com frequência e a realidade por trás de cada um. 👉 Deslize.
+
+Qual destes já ouviu? Conte-nos nos comentários.`,
+   en:`There are plenty of myths about solar energy, and some of them make people put off a decision that could already be saving them money.
+
+We've gathered 5 myths we hear often, and the reality behind each one. 👉 Swipe through.
+
+Which one have you heard? Tell us in the comments.`,
+   tags:"#EnergiaSolar #Autoconsumo #TransiçãoEnergética #SolarEnergy #Portugal"}
+ ]},
+ {id:"semana-2", title:"Semana 2", label:"24 a 26 de novembro · com fotos reais dos produtos", items:[
+  {key:"s2p1", date:"Ter 24/11", fmt:"Imagem 4:5", title:"2.500 a 3.000 horas de sol por ano", imgs:["img/s2_p1.jpg"],
+   pt:`Portugal tem entre 2.500 e 3.000 horas de sol por ano, das mais altas da Europa. ☀️
+
+O sol não é o problema. Os painéis produzem mais ao meio-dia, quando muitas casas e empresas consomem menos. À noite, quando o consumo sobe, o sol já não está lá.
+
+É aqui que entra o inversor híbrido, como o DIPCOS DP-001-6KP da foto. Gere a energia dos painéis, das baterias e da rede, e decide a cada momento de onde vem a energia que usa.
+
+A questão não é se há sol. É onde guarda a energia que ele produz.
+👉 Consulta gratuita: link no primeiro comentário.`,
+   en:`Portugal gets between 2,500 and 3,000 hours of sunshine a year, among the highest in Europe. ☀️
+
+Sunshine isn't the problem. Solar panels produce the most at midday, when many homes and businesses use less. In the evening, when consumption rises, the sun is gone.
+
+That's where a hybrid inverter comes in, like the DIPCOS DP-001-6KP in the photo. It manages energy from your panels, batteries and the grid, and decides at every moment where your power comes from.
+
+The question isn't whether there's sun. It's where you store the energy it produces.
+👉 Free consultation: link in the first comment.`,
+   tags:"#EnergiaSolar #Autoconsumo #ArmazenamentoDeEnergia #SolarEnergy #Portugal"},
+  {key:"s2p2", date:"Qua 25/11", fmt:"Imagem 4:5", title:"27% da energia de autoconsumo foi para a rede", imgs:["img/s2_p2.jpg"],
+   pt:`Em 2024, cerca de 27% da eletricidade produzida em autoconsumo em Portugal continental foi parar à rede (fonte: ERSE).
+
+Na prática, os painéis produzem muito ao meio-dia, quando se consome pouco. Esse excedente segue para a rede e normalmente vale bem menos do que a energia que volta a comprar ao fim do dia.
+
+Uma bateria muda essa conta:
+✅ guarda a energia do meio-dia
+✅ usa-a ao fim da tarde e à noite
+✅ reduz a energia comprada à rede
+
+Na foto: a bateria DIPCOS Solar Lithium Battery.
+
+Os painéis solares produzem energia. As baterias fazem com que ela seja sua.
+Já sabe quanta energia o seu sistema envia para a rede todos os meses?`,
+   en:`In 2024, around 27% of the electricity produced for self-consumption in mainland Portugal ended up in the grid (source: ERSE).
+
+In practice, panels produce a lot at midday, when consumption is low. That surplus goes to the grid and is usually worth much less than the energy you buy back in the evening.
+
+A battery changes the equation:
+✅ it stores midday energy
+✅ you use it in the evening and at night
+✅ you buy less from the grid
+
+In the photo: the DIPCOS Solar Lithium Battery.
+
+Solar panels produce energy. Batteries make it yours.
+Do you know how much energy your system sends to the grid every month?`,
+   tags:"#Autoconsumo #EnergiaSolar #ArmazenamentoDeEnergia #EnergyStorage #Portugal"},
+  {key:"s2p3", date:"Qui 26/11", fmt:"Vídeo 4:5 · 23 s · sem som", title:"Inversores híbridos explicados", video:"img/s2_p3.mp4", poster:"img/s2_p3_poster.jpg",
+   pt:`Inversores híbridos explicados em 20 segundos. 🎥
+
+Num sistema solar com baterias, o inversor híbrido é o cérebro:
+1️⃣ gere três fontes ao mesmo tempo: painéis solares, baterias e rede
+2️⃣ guarda o excedente solar nas baterias
+3️⃣ usa essa energia quando o sol já não está lá
+4️⃣ mantém o essencial a funcionar quando a rede falha
+
+No vídeo: o inversor híbrido DIPCOS DP-001-6KP, a bateria Solar Lithium Battery e as células LFP que compõem os nossos sistemas.
+
+Um sistema passivo produz energia. Um sistema inteligente gere-a.
+👉 Consulta gratuita: link no primeiro comentário.`,
+   en:`Hybrid inverters explained in 20 seconds. 🎥
+
+In a solar system with batteries, the hybrid inverter is the brain:
+1️⃣ it manages three sources at once: solar panels, batteries and the grid
+2️⃣ it stores surplus solar energy in the batteries
+3️⃣ it uses that energy when the sun is gone
+4️⃣ it keeps essential loads running when the grid fails
+
+In the video: the DIPCOS DP-001-6KP hybrid inverter, the Solar Lithium Battery and the LFP cells inside our systems.
+
+A passive system produces energy. A smart system manages it.
+👉 Free consultation: link in the first comment.`,
+   tags:"#EnergiaSolar #InversorHibrido #ArmazenamentoDeEnergia #EnergyStorage #Portugal"}
+ ]},
+ {id:"semana-3", title:"Semana 3", label:"2 a 4 de dezembro · terça 1/12 é feriado", items:[
+  {key:"s3p1", date:"Qua 2/12", fmt:"Carrossel PDF · 7 páginas", title:"Como funciona um sistema solar com baterias (5 passos)", imgs:["img/s3_p1_1.jpg","img/s3_p1_2.jpg","img/s3_p1_3.jpg","img/s3_p1_4.jpg","img/s3_p1_5.jpg","img/s3_p1_6.jpg","img/s3_p1_7.jpg"],
+   docTitle:"Como funciona um sistema solar com baterias | How a solar + battery system works",
+   pt:`Como é que a energia do sol chega à sua casa ou empresa e fica disponível à noite? ☀️🔋
+
+Explicámos em 5 passos simples:
+1️⃣ Os painéis produzem eletricidade
+2️⃣ O inversor híbrido converte-a e decide para onde vai
+3️⃣ Primeiro, alimenta o consumo do momento
+4️⃣ O que sobra fica guardado nas baterias
+5️⃣ À noite, ou se a rede falhar, usa a energia guardada
+
+👉 Deslize para ver cada passo.
+Qual destes passos lhe levantava mais dúvidas?`,
+   en:`How does solar energy reach your home or business and stay available at night? ☀️🔋
+
+We explain it in 5 simple steps:
+1️⃣ The panels produce electricity
+2️⃣ The hybrid inverter converts it and decides where it goes
+3️⃣ It powers what's running right now first
+4️⃣ Whatever is left is stored in the batteries
+5️⃣ At night, or if the grid fails, you use the stored energy
+
+👉 Swipe to see each step.
+Which step raised the most questions for you?`,
+   tags:"#EnergiaSolar #Autoconsumo #ArmazenamentoDeEnergia #SolarEnergy #Portugal"},
+  {key:"s3p2", date:"Qui 3/12", fmt:"Imagem", title:"O que mudou no autoconsumo em 2026", imgs:["img/s3_p2.jpg"],
+   pt:`Instalar painéis solares em Portugal ficou mais simples em 2026. 📋
+
+Com a Lei n.º 29/2026 (em vigor desde 1 de julho) e o Decreto-Lei n.º 130/2026 (em vigor desde 28 de agosto), mudaram quatro coisas importantes:
+✅ Sistemas até 800 W sem injeção na rede deixam de precisar de controlo prévio
+✅ Nos condomínios, instalar painéis passa a ser aprovado por maioria simples
+✅ A partilha de energia (autoconsumo coletivo) pode chegar a 2 km em baixa tensão, e a 4 km em territórios de baixa densidade
+✅ Se a entidade licenciadora não responder no prazo, há deferimento tácito das licenças
+
+Menos burocracia. Mais razões para avançar.
+Cada caso é um caso: antes de investir, peça um estudo ao seu consumo e à sua instalação.
+👉 Consulta gratuita: link no primeiro comentário.`,
+   en:`Going solar in Portugal got simpler in 2026. 📋
+
+With Law 29/2026 (in force since 1 July) and Decree-Law 130/2026 (in force since 28 August), four important things changed:
+✅ Systems up to 800 W that don't export to the grid no longer need prior approval
+✅ In condominiums, installing panels can now be approved by a simple majority
+✅ Energy sharing (collective self-consumption) can reach up to 2 km on low voltage, and 4 km in low-density areas
+✅ If the licensing authority doesn't reply in time, licences are tacitly approved
+
+Less red tape. More reasons to go ahead.
+Every case is different: before investing, get your consumption and installation assessed.
+👉 Free consultation: link in the first comment.`,
+   tags:"#Autoconsumo #EnergiaSolar #TransiçãoEnergética #SolarEnergy #Portugal"},
+  {key:"s3p3", date:"Sex 4/12", fmt:"Sondagem do LinkedIn · 1 semana", title:"Sondagem: o que o impede de passar para a energia solar?", poll:true,
+   pt:`Queremos ouvir quem ainda não deu o passo. 👇
+O que o faz hesitar em passar para a energia solar? Vote e, se quiser, explique nos comentários. Na próxima semana respondemos ao obstáculo mais votado.`,
+   en:`We want to hear from those who haven't made the switch yet. What's holding you back from going solar? Vote and tell us more in the comments. Next week, we'll answer the most voted obstacle.`,
+   tags:"#EnergiaSolar #Autoconsumo #Portugal", noComment:true}
+ ]}
+];
+
+const state = {};
+try { Object.assign(state, JSON.parse(localStorage.getItem("dipcos-aprov")||"{}")); } catch(e){}
+function save(){ try{ localStorage.setItem("dipcos-aprov", JSON.stringify(state)); }catch(e){} }
+const esc = s => s.replace(/[&<>]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+
+function media(it){
+  if (it.poll) return `<div class="poll"><small class="label">Sondagem · Poll</small>
+    <div class="q">O que o impede de passar para a energia solar? / What's stopping you from going solar?</div>
+    <div class="o">Custo inicial / Upfront cost</div><div class="o">Burocracia / Paperwork</div>
+    <div class="o">Dúvidas técnicas / Tech doubts</div><div class="o">Falta de espaço / No space</div></div>`;
+  if (it.video) return `<div class="media"><video src="${it.video}" poster="${it.poster}" controls muted playsinline loop></video></div>`;
+  if (it.imgs.length === 1) return `<div class="media"><img src="${it.imgs[0]}" alt="${esc(it.title)}" loading="lazy"></div>`;
+  return `<div class="media"><div class="slides" data-k="${it.key}">${it.imgs.map((s,i)=>`<img src="${s}" class="${i?'':'on'}" alt="Página ${i+1}" loading="lazy">`).join("")}</div>
+    <div class="snav"><button data-dir="-1" data-k="${it.key}" aria-label="Página anterior">‹</button><span id="pg-${it.key}">1 / ${it.imgs.length}</span><button data-dir="1" data-k="${it.key}" aria-label="Página seguinte">›</button></div></div>`;
+}
+
+function captionBlock(it){
+  if (it.about) return `<p>${esc(it.about)}</p>`;
+  if (it.aboutText) return `<div class="about-text">${esc(it.aboutText)}</div>`;
+  const full = `${it.pt}\n\n🇬🇧\n${it.en}\n\n${it.tags}`;
+  return `<div class="tabs"><button class="on" data-t="all" data-k="${it.key}">Legenda completa</button><button data-t="pt" data-k="${it.key}">🇵🇹 PT</button><button data-t="en" data-k="${it.key}">🇬🇧 EN</button></div>
+    <div class="caption" id="c-all-${it.key}">${esc(full)}</div>
+    <div class="caption" id="c-pt-${it.key}" hidden>${esc(it.pt)}</div>
+    <div class="caption" id="c-en-${it.key}" hidden>${esc(it.en)}</div>
+    <button class="copy" data-copy="${it.key}">Copiar legenda</button>
+    ${it.noComment ? "" : `<div class="sub"><b>1.º comentário:</b> ${esc(COMMENT)}</div>`}
+    ${it.docTitle ? `<div class="sub"><b>Título do documento:</b> ${esc(it.docTitle)}</div>` : ""}`;
+}
+
+function card(it){
+  const st = state[it.key] || {};
+  const cls = st.s==="ok" ? "status-ok" : st.s==="change" ? "status-change" : "";
+  return `<article class="card ${it.wide?'wide':''} ${cls}" id="card-${it.key}">
+    ${media(it)}
+    <div class="body">
+      <div class="meta"><span class="chip date">${it.date}</span><span class="chip fmt">${it.fmt}</span></div>
+      <h3>${esc(it.title)}</h3>
+      ${captionBlock(it)}
+      <div class="approve">
+        <div class="opts">
+          <label><input type="radio" name="r-${it.key}" value="ok" ${st.s==="ok"?"checked":""}> ✅ Aprovado</label>
+          <label><input type="radio" name="r-${it.key}" value="change" ${st.s==="change"?"checked":""}> ✏️ Precisa de alterações</label>
+        </div>
+        <textarea data-note="${it.key}" placeholder="O que quer mudar? (opcional)">${st.n?esc(st.n):""}</textarea>
+      </div>
+    </div></article>`;
+}
+
+const app = document.getElementById("app");
+app.innerHTML = DATA.map(w=>`<section class="week" id="${w.id}">
+  <div class="week-head"><h2>${w.title}</h2><span class="label">${w.label}</span></div>
+  ${w.id==="semana-2" ? `<div class="note">Estes posts usam as fotos e os vídeos reais dos produtos DIPCOS enviados pela empresa.</div>` : ""}
+  ${w.items.map(card).join("")}</section>`).join("");
+
+const ALL = DATA.flatMap(w=>w.items.map(it=>({...it, week:w.title})));
+const byKey = Object.fromEntries(ALL.map(i=>[i.key,i]));
+
+function summary(){
+  let ok=0, ch=0;
+  const lines = ["Aprovação dos conteúdos LinkedIn DIPCOS", ""];
+  for (const it of ALL){
+    const st = state[it.key]||{};
+    let mark = "⬜ por rever";
+    if (st.s==="ok"){ mark="✅ aprovado"; ok++; }
+    if (st.s==="change"){ mark="✏️ alterações"; ch++; }
+    lines.push(`${it.date} · ${it.title} → ${mark}${st.n ? `\n   Nota: ${st.n}` : ""}`);
+  }
+  document.getElementById("sumtext").textContent = lines.join("\n");
+  document.getElementById("count").textContent = `${ok} aprovados · ${ch} com alterações · ${ALL.length-ok-ch} por rever`;
+}
+summary();
+
+document.addEventListener("change", e=>{
+  const t = e.target;
+  if (t.type==="radio"){
+    const k = t.name.slice(2); state[k] = {...(state[k]||{}), s:t.value}; save();
+    const c = document.getElementById("card-"+k);
+    c.classList.toggle("status-ok", t.value==="ok"); c.classList.toggle("status-change", t.value==="change");
+    summary();
+  }
+});
+document.addEventListener("input", e=>{
+  const k = e.target.dataset && e.target.dataset.note;
+  if (k){ state[k] = {...(state[k]||{}), n:e.target.value}; save(); summary(); }
+});
+async function copyText(txt, btn, label){
+  try { await navigator.clipboard.writeText(txt); btn.textContent = "Copiado ✓"; }
+  catch(e){ btn.textContent = "Selecione e copie manualmente"; }
+  setTimeout(()=>btn.textContent=label, 1800);
+}
+document.addEventListener("click", e=>{
+  const b = e.target.closest("button"); if(!b) return;
+  if (b.dataset.dir){
+    const k=b.dataset.k, box=document.querySelector(`.slides[data-k="${k}"]`), imgs=[...box.children];
+    let i = imgs.findIndex(x=>x.classList.contains("on")); imgs[i].classList.remove("on");
+    i = (i + Number(b.dataset.dir) + imgs.length) % imgs.length; imgs[i].classList.add("on");
+    document.getElementById("pg-"+k).textContent = `${i+1} / ${imgs.length}`;
+  }
+  if (b.dataset.t){
+    const k=b.dataset.k;
+    b.parentElement.querySelectorAll("button").forEach(x=>x.classList.toggle("on", x===b));
+    ["all","pt","en"].forEach(t=>document.getElementById(`c-${t}-${k}`).hidden = t!==b.dataset.t);
+  }
+  if (b.dataset.copy){
+    const it = byKey[b.dataset.copy];
+    copyText(`${it.pt}\n\n🇬🇧\n${it.en}\n\n${it.tags}`, b, "Copiar legenda");
+  }
+  if (b.id==="copyall") copyText(document.getElementById("sumtext").textContent, b, "Copiar resposta");
+});
+</script>
+</body>
+</html>
