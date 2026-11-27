@@ -4,6 +4,8 @@ import { mkdirSync, writeFileSync, cpSync, rmSync, readFileSync } from "node:fs"
 import { createHash } from "node:crypto";
 import { dirname, join } from "node:path";
 import { SITE, IMG, T, POSTS, PRODUCTS, ORDER } from "./src/content.mjs";
+import { legalCopy, noticeBody, privacyBody, LIVRO_URL, RAL } from "./src/legal.mjs";
+const LEGAL_PATHS = { en: { notice: "/legal", privacy: "/privacy" }, pt: { notice: "/pt/informacao-legal", privacy: "/pt/privacidade" } };
 
 const OUT = "public";
 const BUILD_DATE = new Date().toISOString().slice(0, 10);
@@ -35,7 +37,12 @@ const orgNode = () => ({
   "@type": ["Organization", "LocalBusiness"],
   "@id": ORG_ID,
   name: SITE.name,
-  alternateName: ["DIPCOS", "Dipcos"],
+  legalName: SITE.legal.name,
+  alternateName: ["DIPCOS", "Dipcos", "DIPCOS Distributed Inteligent Power Control Systems"],
+  taxID: SITE.legal.nipc,
+  vatID: SITE.legal.vat,
+  foundingDate: SITE.legal.founded,
+  identifier: { "@type": "PropertyValue", propertyID: "NIPC", value: SITE.legal.nipc },
   url: SITE.url + "/",
   logo: { "@type": "ImageObject", url: abs("/assets/img/logo-blue.png") },
   image: abs("/assets/img/og-image.png"),
@@ -171,9 +178,13 @@ ${body}
         ${SITE.social.length ? `<ul class="socials">${SITE.social.map((s) => `<li><a href="${s.url}" rel="me noopener" target="_blank" aria-label="Dipcos Energy — ${s.name}" title="${s.name}">${ICONS[s.icon] || s.name}</a></li>`).join("")}</ul>` : ""}
       </div>
     </div>
+    <div class="legal-foot">
+      <p>${SITE.legal.name} · ${legalCopy[lang].footer.nipc} ${SITE.legal.nipc} · ${legalCopy[lang].footer.office}: ${SITE.legal.office.street}, ${SITE.legal.office.postalCode} ${SITE.legal.office.city}</p>
+      <a class="livro" href="${LIVRO_URL}" target="_blank" rel="noopener">${legalCopy[lang].footer.complaints}</a>
+    </div>
     <div class="sub-foot">
       <span>© ${new Date().getFullYear()} Dipcos Energy. ${t.footer.rights}</span>
-      <span class="sub-links"><a href="/terms">${t.footer.legal}</a><a class="madeby" href="https://heyimplement.com" target="_blank" rel="noopener">Made by <strong>Implement</strong></a></span>
+      <span class="sub-links"><a href="${LEGAL_PATHS[lang].notice}">${legalCopy[lang].footer.notice}</a><a href="${LEGAL_PATHS[lang].privacy}">${legalCopy[lang].footer.privacy}</a><a href="/terms">${t.footer.legal}</a><a class="madeby" href="https://heyimplement.com" target="_blank" rel="noopener">Made by <strong>Implement</strong></a></span>
     </div>
   </div>
 </footer>
@@ -615,14 +626,14 @@ ${ctaBand(t)}`,
     lang: "en", path: "/terms", title: t.terms.title, description: t.terms.description,
     ld: [crumbsNode([["Dipcos Energy", "/"], ["Terms & Conditions", "/terms"]])],
     body: `
-${pageHero(t, { eyebrow: "Legal", h1: t.terms.h1, lead: "Last updated: 27/02/2026", crumbs: "Terms" })}
+${pageHero(t, { eyebrow: "Legal", h1: t.terms.h1, lead: "Last updated: 27/11/2026", crumbs: "Terms" })}
 <section class="section"><div class="wrap"><div class="prose legal">
 <h2>1. Introduction</h2>
 <p>These Terms and Conditions govern the use of this website and the purchase of products offered by Dipcos Energy (“Dipcos”, “we”, “our”, or “us”).</p>
 <p>By accessing this website or placing an order, you agree to be bound by these Terms and Conditions. If you do not agree, you must not use this website or proceed with any purchase.</p>
 <p>Due to the technical nature of energy systems, we strongly encourage customers to contact our team before completing a purchase to ensure compatibility and suitability. For any questions, please contact <a href="mailto:${S.email}">${S.email}</a> or <a href="tel:${S.phoneHref}">${S.phone}</a>. Our specialists are available to guide you toward the most appropriate solution.</p>
 <h2>2. Company Information</h2>
-<p>Dipcos Energy<br>${addr.street}<br>${addr.postalCode} ${addr.city}, Portugal<br>Website: <a href="${S.url}">www.dipcos.pt</a><br>Email: ${S.email}</p>
+<p>${S.legal.name} (trading as Dipcos Energy)<br>NIPC / VAT: ${S.legal.nipc} (${S.legal.vat})<br>Registered with the ${S.legal.registry.en}<br>Registered office: ${S.legal.office.street}, ${S.legal.office.postalCode} ${S.legal.office.city}, Portugal<br>Contact address: ${addr.street}, ${addr.postalCode} ${addr.city}, Portugal<br>Website: <a href="${S.url}">www.dipcos.pt</a><br>Email: ${S.email} · Phone: ${S.phone}</p>
 <h2>3. Products</h2>
 <p>Dipcos Energy supplies energy storage systems, hybrid inverters, batteries and related components.</p>
 <p>All products sold are technical electrical systems designed for integration into energy installations. Customers are responsible for ensuring compatibility with their existing systems and compliance with local regulations.</p>
@@ -662,9 +673,11 @@ ${pageHero(t, { eyebrow: "Legal", h1: t.terms.h1, lead: "Last updated: 27/02/202
 <h2>12. Intelligent System Disclaimer</h2>
 <p>Some Dipcos systems may include intelligent monitoring and automated energy optimization features. These features are designed to enhance efficiency but do not replace professional installation, regulatory compliance, or electrical supervision. Customers remain responsible for ensuring correct system configuration.</p>
 <h2>13. Data Protection</h2>
-<p>Personal data collected through this website is processed in accordance with applicable data protection regulations.</p>
+<p>Personal data collected through this website is processed in accordance with the GDPR and applicable Portuguese law. See our <a href="/privacy">Privacy Policy</a>.</p>
 <h2>14. Governing Law</h2>
-<p>These Terms and Conditions are governed by Portuguese law. Any disputes shall be subject to the jurisdiction of Portuguese courts.</p>
+<p>These Terms and Conditions are governed by Portuguese law. Any disputes shall be subject to the jurisdiction of Portuguese courts, without prejudice to mandatory consumer protection rules.</p>
+<p><strong>Complaints Book:</strong> consumers may submit a complaint through the electronic Complaints Book at <a href="${LIVRO_URL}" target="_blank" rel="noopener">www.livroreclamacoes.pt</a>.</p>
+<p><strong>Alternative dispute resolution:</strong> in the event of a consumer dispute, consumers may refer it to ${RAL.map((r) => `${r.name} (${r.web.replace("https://", "")}, ${r.phone})`).join(" or ")}. See the <a href="/legal">Legal Notice</a> for full details.</p>
 <h2>15. Contact and Support</h2>
 <p>We strongly encourage customers to contact our team before and after purchase. Our specialists can assist with:</p>
 <ul><li>Energy consumption analysis</li><li>System sizing recommendations</li><li>Compatibility verification</li><li>Installer coordination</li><li>Long-term support guidance</li></ul>
@@ -672,6 +685,21 @@ ${pageHero(t, { eyebrow: "Legal", h1: t.terms.h1, lead: "Last updated: 27/02/202
 <p class="sign">Reliable energy. Real independence.</p>
 </div></div></section>`,
   }), { lang: "en", priority: "0.3" });
+}
+
+// LEGAL NOTICE + PRIVACY (EN/PT)
+for (const lang of ["en", "pt"]) {
+  const t = T[lang], c = legalCopy[lang], P = LEGAL_PATHS[lang], O = LEGAL_PATHS[lang === "en" ? "pt" : "en"];
+  const legalPage = (path, alt, title, description, h1, body) =>
+    write(path, layout({
+      lang, path, alt, title, description,
+      ld: [crumbsNode([["Dipcos Energy", t.paths.home], [h1, path]])],
+      body: `
+${pageHero(t, { eyebrow: lang === "pt" ? "Legal" : "Legal", h1, crumbs: h1 })}
+<section class="section"><div class="wrap"><div class="prose legal">${body}</div></div></section>`,
+    }), { lang, alt, priority: "0.3" });
+  legalPage(P.notice, O.notice, c.noticeTitle, c.noticeDesc, c.noticeH1, noticeBody(lang, SITE));
+  legalPage(P.privacy, O.privacy, c.privacyTitle, c.privacyDesc, c.privacyH1, privacyBody(lang, SITE));
 }
 
 // ---------- feed.xml (RSS 2.0 do blog — usado pelo Metricool e leitores de RSS) ----------
@@ -770,6 +798,7 @@ Key facts:
 - Solutions by scale: ${en.tiers.map((x) => `${x.name} (${x.range})`).join("; ")}.
 - Services: consumption analysis, technical sizing, AI integration, monitoring and support. Installation is done by the customer or certified installers; Dipcos guides, verifies compatibility and coordinates.
 - Contact: ${SITE.phone} · ${SITE.email} · ${addressLine}
+- Legal entity: ${SITE.legal.name} · NIPC ${SITE.legal.nipc} · Registered office: ${SITE.legal.office.street}, ${SITE.legal.office.postalCode} ${SITE.legal.office.city}, Portugal · Registered with the ${SITE.legal.registry.en}
 - Languages: English and Portuguese.
 
 ## Main pages
@@ -777,6 +806,8 @@ Key facts:
 - [Solutions](${abs("/services")}): residential, commercial/hospitality and industrial energy storage
 - [About](${abs("/about")}): company history, mission, vision and values
 - [Contact](${abs("/contact")}): free consultation, phone, email and address
+- [Legal notice](${abs("/legal")}): company identification, complaints book and dispute resolution
+- [Privacy policy](${abs("/privacy")}): personal data and GDPR rights
 - [Products](${abs("/shop")}): 15.36 kWh LiFePO₄ battery (€1,942.53 + VAT), 6,200 W hybrid inverter (€533 + VAT), battery + inverter system (€2,475.53 + VAT); order requests by form, delivery quoted separately
 - [Português](${abs("/pt/")}): versão em português
 

@@ -4,6 +4,18 @@
 // =====================================================================
 
 export const SITE = {
+  // Dados legais da empresa (Registo Comercial) — usados no rodapé, Informação Legal, Termos, Privacidade e dados estruturados
+  legal: {
+    name: "DIPCOS Distributed Inteligent Power Control Systems, Unipessoal Lda",
+    type: { en: "Single-member private limited company (Sociedade Unipessoal por Quotas)", pt: "Sociedade Unipessoal por Quotas" },
+    nipc: "518224570",
+    vat: "PT518224570",
+    registry: { en: "Commercial Registry Office of Faro (Conservatória do Registo Comercial de Faro)", pt: "Conservatória do Registo Comercial de Faro" },
+    office: { street: "Rua das Salinas, n.º 2", postalCode: "8700-172", city: "Olhão", country: "Portugal" },
+    cae: "72102",
+    founded: "2024-06-18",
+    capital: "", // capital social — preencher quando confirmado (ex.: "5.000,00 €")
+  },
   // Metricool (análise de tráfego do site no painel Metricool)
   metricoolHash: "75ecdc556268fcae1d9872c799c954b1",
   name: "Dipcos Energy",

@@ -8,6 +8,7 @@ Key facts:
 - Solutions by scale: Residential & Small Commercial (0–50 kW); Commercial, Hospitality & Mid-Scale Industry (50–500 kW); High-Power & Industrial (500+ kW).
 - Services: consumption analysis, technical sizing, AI integration, monitoring and support. Installation is done by the customer or certified installers; Dipcos guides, verifies compatibility and coordinates.
 - Contact: +351 289 703 453 · info@dipcos.pt · Rua Bartolomeu Constantino, lote 6 R/C Dir., 8700-256 Olhão, Portugal
+- Legal entity: DIPCOS Distributed Inteligent Power Control Systems, Unipessoal Lda · NIPC 518224570 · Registered office: Rua das Salinas, n.º 2, 8700-172 Olhão, Portugal · Registered with the Commercial Registry Office of Faro (Conservatória do Registo Comercial de Faro)
 - Languages: English and Portuguese.
 
 ## Main pages
@@ -15,6 +16,8 @@ Key facts:
 - [Solutions](https://www.dipcos.pt/services): residential, commercial/hospitality and industrial energy storage
 - [About](https://www.dipcos.pt/about): company history, mission, vision and values
 - [Contact](https://www.dipcos.pt/contact): free consultation, phone, email and address
+- [Legal notice](https://www.dipcos.pt/legal): company identification, complaints book and dispute resolution
+- [Privacy policy](https://www.dipcos.pt/privacy): personal data and GDPR rights
 - [Products](https://www.dipcos.pt/shop): 15.36 kWh LiFePO₄ battery (€1,942.53 + VAT), 6,200 W hybrid inverter (€533 + VAT), battery + inverter system (€2,475.53 + VAT); order requests by form, delivery quoted separately
 - [Português](https://www.dipcos.pt/pt/): versão em português
 
