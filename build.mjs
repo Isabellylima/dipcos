@@ -798,7 +798,7 @@ Key facts:
 - Solutions by scale: ${en.tiers.map((x) => `${x.name} (${x.range})`).join("; ")}.
 - Services: consumption analysis, technical sizing, AI integration, monitoring and support. Installation is done by the customer or certified installers; Dipcos guides, verifies compatibility and coordinates.
 - Contact: ${SITE.phone} · ${SITE.email} · ${addressLine}
-- Legal entity: ${SITE.legal.name} · NIPC ${SITE.legal.nipc} · Registered office: ${SITE.legal.office.street}, ${SITE.legal.office.postalCode} ${SITE.legal.office.city}, Portugal · Registered with the ${SITE.legal.registry.en}
+- Legal entity: ${SITE.legal.name} · NIPC ${SITE.legal.nipc} · Registered with the ${SITE.legal.registry.en}
 - Languages: English and Portuguese.
 
 ## Main pages
