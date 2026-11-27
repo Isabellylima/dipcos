@@ -385,3 +385,4 @@ dl.legal-id dd{font-weight:600}
 @media (max-width:560px){dl.legal-id{grid-template-columns:1fr}dl.legal-id dt{border-bottom:0;padding-bottom:0}}
 .legal ul.ral{list-style:none;padding:0}
 .legal ul.ral li{padding:16px 18px;background:var(--white);border:1px solid var(--line);border-radius:4px;margin-bottom:12px;line-height:1.6}
+dl.legal-id dd.muted{font-weight:400;color:var(--graphite)}

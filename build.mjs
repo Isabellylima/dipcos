@@ -179,7 +179,7 @@ ${body}
       </div>
     </div>
     <div class="legal-foot">
-      <p>${SITE.legal.name} · ${legalCopy[lang].footer.nipc} ${SITE.legal.nipc} · ${legalCopy[lang].footer.office}: ${SITE.legal.office.street}, ${SITE.legal.office.postalCode} ${SITE.legal.office.city}</p>
+      <p>${SITE.legal.name} · ${legalCopy[lang].footer.nipc} ${SITE.legal.nipc}</p>
       <a class="livro" href="${LIVRO_URL}" target="_blank" rel="noopener">${legalCopy[lang].footer.complaints}</a>
     </div>
     <div class="sub-foot">
@@ -633,7 +633,7 @@ ${pageHero(t, { eyebrow: "Legal", h1: t.terms.h1, lead: "Last updated: 27/11/202
 <p>By accessing this website or placing an order, you agree to be bound by these Terms and Conditions. If you do not agree, you must not use this website or proceed with any purchase.</p>
 <p>Due to the technical nature of energy systems, we strongly encourage customers to contact our team before completing a purchase to ensure compatibility and suitability. For any questions, please contact <a href="mailto:${S.email}">${S.email}</a> or <a href="tel:${S.phoneHref}">${S.phone}</a>. Our specialists are available to guide you toward the most appropriate solution.</p>
 <h2>2. Company Information</h2>
-<p>${S.legal.name} (trading as Dipcos Energy)<br>NIPC / VAT: ${S.legal.nipc} (${S.legal.vat})<br>Registered with the ${S.legal.registry.en}<br>Registered office: ${S.legal.office.street}, ${S.legal.office.postalCode} ${S.legal.office.city}, Portugal<br>Contact address: ${addr.street}, ${addr.postalCode} ${addr.city}, Portugal<br>Website: <a href="${S.url}">www.dipcos.pt</a><br>Email: ${S.email} · Phone: ${S.phone}</p>
+<p>${S.legal.name} (trading as Dipcos Energy)<br>NIPC / VAT: ${S.legal.nipc} (${S.legal.vat})<br>Registered with the ${S.legal.registry.en}<br>Address: ${addr.street}, ${addr.postalCode} ${addr.city}, Portugal<br>Full company details: <a href="/legal">Legal Notice</a><br>Website: <a href="${S.url}">www.dipcos.pt</a><br>Email: ${S.email} · Phone: ${S.phone}</p>
 <h2>3. Products</h2>
 <p>Dipcos Energy supplies energy storage systems, hybrid inverters, batteries and related components.</p>
 <p>All products sold are technical electrical systems designed for integration into energy installations. Customers are responsible for ensuring compatibility with their existing systems and compliance with local regulations.</p>

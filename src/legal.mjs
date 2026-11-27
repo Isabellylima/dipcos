@@ -67,11 +67,11 @@ export function noticeBody(lang, SITE) {
   <dt>N.º de IVA (UE)</dt><dd>${L.vat}</dd>
   <dt>Registo</dt><dd>Matriculada na ${L.registry.pt}</dd>
   ${capital}
-  <dt>Sede</dt><dd>${office(L)}</dd>
-  <dt>Morada de contacto</dt><dd>${SITE.address.street}, ${SITE.address.postalCode} ${SITE.address.city}, Portugal</dd>
+  <dt>Escritório e atendimento</dt><dd>${SITE.address.street}, ${SITE.address.postalCode} ${SITE.address.city}, Portugal</dd>
   <dt>Telefone</dt><dd><a href="tel:${SITE.phoneHref}">${SITE.phone}</a> (chamada para a rede fixa nacional)</dd>
   <dt>Email</dt><dd><a href="mailto:${SITE.email}">${SITE.email}</a></dd>
   <dt>CAE</dt><dd>${L.cae}</dd>
+  <dt>Sede social (registo)</dt><dd class="muted">${office(L)}</dd>
 </dl>
 <h2>2. Livro de Reclamações</h2>
 <p>Nos termos do Decreto-Lei n.º 156/2005, de 15 de setembro, na sua redação atual, a Dipcos Energy disponibiliza o Livro de Reclamações em formato eletrónico. Pode apresentar uma reclamação em <a href="${LIVRO_URL}" target="_blank" rel="noopener">www.livroreclamacoes.pt</a>.</p>
@@ -97,11 +97,11 @@ export function noticeBody(lang, SITE) {
   <dt>EU VAT number</dt><dd>${L.vat}</dd>
   <dt>Registry</dt><dd>Registered with the ${L.registry.en}</dd>
   ${capital}
-  <dt>Registered office</dt><dd>${office(L)}</dd>
-  <dt>Contact address</dt><dd>${SITE.address.street}, ${SITE.address.postalCode} ${SITE.address.city}, Portugal</dd>
+  <dt>Office &amp; visits</dt><dd>${SITE.address.street}, ${SITE.address.postalCode} ${SITE.address.city}, Portugal</dd>
   <dt>Phone</dt><dd><a href="tel:${SITE.phoneHref}">${SITE.phone}</a></dd>
   <dt>Email</dt><dd><a href="mailto:${SITE.email}">${SITE.email}</a></dd>
   <dt>Activity code (CAE)</dt><dd>${L.cae}</dd>
+  <dt>Registered office</dt><dd class="muted">${office(L)}</dd>
 </dl>
 <h2>2. Complaints Book</h2>
 <p>In accordance with Portuguese Decree-Law no. 156/2005, Dipcos Energy provides the electronic Complaints Book (Livro de Reclamações). You can submit a complaint at <a href="${LIVRO_URL}" target="_blank" rel="noopener">www.livroreclamacoes.pt</a>.</p>
@@ -122,7 +122,7 @@ export function privacyBody(lang, SITE) {
   if (lang === "pt") {
     return `
 <h2>1. Responsável pelo tratamento</h2>
-<p>${L.name} (Dipcos Energy), NIPC ${L.nipc}, com sede em ${office(L)}. Para qualquer questão sobre dados pessoais: <a href="mailto:${SITE.email}">${SITE.email}</a> ou ${SITE.phone}.</p>
+<p>${L.name} (Dipcos Energy), NIPC ${L.nipc}, ${SITE.address.street}, ${SITE.address.postalCode} ${SITE.address.city}, Portugal. Para qualquer questão sobre dados pessoais: <a href="mailto:${SITE.email}">${SITE.email}</a> ou ${SITE.phone}.</p>
 <h2>2. Que dados recolhemos</h2>
 <ul>
 <li><strong>Formulário de contacto:</strong> nome, email, telefone (opcional), tipo de projeto e mensagem.</li>
@@ -158,7 +158,7 @@ export function privacyBody(lang, SITE) {
   }
   return `
 <h2>1. Data controller</h2>
-<p>${L.name} (Dipcos Energy), NIPC ${L.nipc}, registered office at ${office(L)}. For any question about personal data: <a href="mailto:${SITE.email}">${SITE.email}</a> or ${SITE.phone}.</p>
+<p>${L.name} (Dipcos Energy), NIPC ${L.nipc}, ${SITE.address.street}, ${SITE.address.postalCode} ${SITE.address.city}, Portugal. For any question about personal data: <a href="mailto:${SITE.email}">${SITE.email}</a> or ${SITE.phone}.</p>
 <h2>2. What data we collect</h2>
 <ul>
 <li><strong>Contact form:</strong> name, email, phone (optional), project type and message.</li>
